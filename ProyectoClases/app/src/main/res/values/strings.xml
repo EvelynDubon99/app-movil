@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">proyecto</string>
+    <string name="login">Login</string>
+    <string name="user_name">User Name:</string>
+    <string name="welcome">Welcome to Guatemala</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="register">Register</string>
+    <string name="welcom_onboard">Welcom Onboard!</string>
+    <string name="let_us_help_you_get_to_know_places_in_guatemala">Let us help you get to know places in Guatemala</string>
+    <string name="email">Email</string>
+    <string name="last_name">Last Name</string>
+    <string name="name">Name</string>
+    <string name="nationality">Nationality</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="password_confirmation">Password Confirmation</string>
+    <string name="flecha">flecha</string>
+    <string name="arcofondo">arcofondo</string>
+    <string name="already_have_an_account_sing_in">Already have an account? Login</string>
+    <string name="don_t_have_an_account_sing_up">Don\'t have an account? Sing Up</string>
+</resources>
