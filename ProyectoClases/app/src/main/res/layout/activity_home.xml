@@ -4,9 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    tools:context=".Home"
+    android:padding="8dp">
+    <Button
+        android:id="@+id/lugares"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button"
+        app:backgroundTint="@null"
+        android:text="@string/lugares_turisticos"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        tools:ignore="MissingConstraints"
+        />
+
+    <Button
+        android:id="@+id/mas"
+        android:layout_width="96dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/button"
+        android:text="Más Populares"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/lugares"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/menos"
+        android:layout_width="96dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/button"
+        android:text="Menos Populares"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/mas"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="60dp"
         android:id="@+id/restaurante_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

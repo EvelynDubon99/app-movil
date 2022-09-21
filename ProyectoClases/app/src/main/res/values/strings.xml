@@ -19,4 +19,6 @@
     <string name="already_have_an_account_sing_in">Already have an account? Login</string>
     <string name="don_t_have_an_account_sing_up">Don\'t have an account? Sing Up</string>
     <string name="imagencontenido">imagencontenido</string>
+    <string name="lugares_turisticos">Lugares Turisticos</string>
+    <string name="restaurantes">Restaurantes</string>
 </resources>

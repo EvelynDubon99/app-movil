@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.proyecto.Model.Restaurante;
@@ -23,11 +26,20 @@ public class Home extends AppCompatActivity {
 
     private List<Restaurante> mRestaurante;
     private RestauranteService restauranteService;
+    private Button lugares;
+    private Button mas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        lugares = findViewById(R.id.lugares);
+        mas = findViewById(R.id.mas);
+        lugares.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Home.this, Lugares.class));
+            }
+        });
         restauranteService = Api.getRetrofitInstance().create(RestauranteService.class);
         RecyclerView rvRestau = (RecyclerView) findViewById(R.id.restaurante_list);
 
