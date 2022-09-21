@@ -10,16 +10,16 @@ import retrofit2.http.GET;
 public interface RestauranteService {
     @GET("api/restaurante")
     Call<List<Restaurante>> getRestaurante();
-    @GET("api/mas")
+    @GET("api/restaurante/mas")
     Call<List<Restaurante>> getMasPopular();
-    @GET("api/menos")
+    @GET("api/restaurante/menos")
     Call<List<Restaurante>> getMenosPopular();
-    @GET("api/acDep")
+    @GET("api/restaurante/acDep")
     Call<List<Restaurante>> getACdep();
-    @GET("api/opDep")
+    @GET("api/restaurante/opDep")
     Call<List<Restaurante>> getOpdep();
-    @GET("api/acNom")
+    @GET("api/restaurante/acNom")
     Call<List<Restaurante>> getACnom();
-    @GET("api/opNom")
+    @GET("api/restaurante/opNom")
     Call<List<Restaurante>> getOpnom();
 }
