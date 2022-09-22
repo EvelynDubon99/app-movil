@@ -71,7 +71,7 @@ public class Login extends AppCompatActivity {
         });
 
     }
-    private void logear(String correo, String contra) {
+    private void logear(String correo, String  contra) {
         try {
             UserService userService = Api.getRetrofitInstance().create(UserService.class);
             Call<User> call = userService.postLogin(correo, contra);

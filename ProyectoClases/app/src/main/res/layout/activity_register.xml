@@ -73,7 +73,7 @@
         android:textStyle="bold"
         android:textSize="12sp"
         android:layout_marginTop="10dp"
-        android:inputType="text"/>
+        android:inputType="textEmailAddress"/>
     <EditText
         android:id="@+id/nacionalidad"
         android:layout_width="350dp"
@@ -106,7 +106,7 @@
         android:textStyle="bold"
         android:textSize="12sp"
         android:layout_marginTop="10dp"
-        android:inputType="text"/>
+        android:inputType="textPassword"/>
     <EditText
         android:id="@+id/confcontra"
         android:layout_width="350dp"
@@ -117,7 +117,7 @@
         android:textStyle="bold"
         android:textSize="12sp"
         android:layout_marginTop="10dp"
-        android:inputType="text"/>
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/register"

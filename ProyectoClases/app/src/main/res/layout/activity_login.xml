@@ -42,7 +42,7 @@
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginTop="30dp"
-        android:inputType="text"/>
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/contra"
@@ -54,7 +54,7 @@
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginTop="30dp"
-        android:inputType="text"/>
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/login"

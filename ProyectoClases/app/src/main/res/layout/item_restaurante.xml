@@ -26,6 +26,7 @@
         android:text="El Rincon de la Finca"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/restaurente_image"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,6 +40,7 @@
         android:layout_marginTop="4dp"
         android:text="Guatemala"
         android:textSize="16sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/restaurente_image"
         app:layout_constraintTop_toBottomOf="@id/restaurente_name" />
 
@@ -48,8 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="5dp"
-        android:text="Calificacion: 5"
+        android:text="5"
         android:textSize="16sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/restaurente_image"
         app:layout_constraintTop_toBottomOf="@id/departamento" />
 
