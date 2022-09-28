@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.proyecto.Model.User;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.UserService;
+import com.hbb20.CountryCodePicker;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +27,7 @@ public class Register extends AppCompatActivity {
     private EditText nombre;
     private EditText apellido;
     private EditText correo;
-    private EditText nacionalidad;
+    private CountryCodePicker nacionalidad;
     private EditText numero;
     private EditText contra;
     private EditText confcontra;
@@ -63,7 +64,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (nombre.getText().toString().isEmpty() && apellido.getText().toString().isEmpty()
-                        && correo.getText().toString().isEmpty() && nacionalidad.getText().toString().isEmpty()
+                        && correo.getText().toString().isEmpty() && nacionalidad.getSelectedCountryName().toString().isEmpty()
                         && numero.getText().toString().isEmpty() && contra.getText().toString().isEmpty()
                         && confcontra.getText().toString().isEmpty()){
                     // objeto de vista que despliega elemementos emergentes en la IU
@@ -75,7 +76,7 @@ public class Register extends AppCompatActivity {
                         nombre.getText().toString(),
                         apellido.getText().toString(),
                         correo.getText().toString(),
-                        nacionalidad.getText().toString(),
+                        nacionalidad.getSelectedCountryName(),
                         numero.getText().toString(),
                         contra.getText().toString(),
                         confcontra.getText().toString()
@@ -95,7 +96,6 @@ public class Register extends AppCompatActivity {
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    Toast.makeText(Register.this, response.toString(), Toast.LENGTH_SHORT).show();
                     User user = response.body();
                     if (user.ok ){
                         Intent intent = new Intent(getApplicationContext(), Home.class);

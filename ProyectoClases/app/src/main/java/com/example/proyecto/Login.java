@@ -1,13 +1,14 @@
 package com.example.proyecto;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import com.example.proyecto.Model.User;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.UserService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +25,6 @@ import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
 
-    private ImageView regresar;
     private TextView newregister;
     private EditText correo;
     private EditText contra;
@@ -32,18 +34,11 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        regresar=findViewById(R.id.regresar);
         newregister=findViewById(R.id.newregister);
         correo = findViewById(R.id.correo);
         contra = findViewById(R.id.contra);
         login = findViewById(R.id.login);
 
-        regresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Login.this, MainActivity.class));
-            }
-        });
 
         newregister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,13 +46,12 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(Login.this, Register.class));
             }
         });
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (correo.getText().toString().isEmpty() && contra.getText().toString().isEmpty()){
                     // objeto de vista que despliega elemementos emergentes en la IU
-                    Toast.makeText(Login.this, "Ingresar correo y contraseña", 
+                    Toast.makeText(Login.this, "Ingresar correo y contraseña",
                             Toast.LENGTH_SHORT).show();
                         return;
                 }
@@ -98,5 +92,6 @@ public class Login extends AppCompatActivity {
         }
 
     }
+
 
 }
