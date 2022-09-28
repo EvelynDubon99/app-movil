@@ -1,134 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Home"
-    android:padding="8dp">
+    android:orientation="vertical">
 
 
 
-    <Button
-        android:id="@+id/lugares"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:background="@drawable/button"
-        app:backgroundTint="@null"
-        android:text="@string/lugares_turisticos"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        tools:ignore="MissingConstraints"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/amarrillo"
         />
 
-    <Button
-        android:id="@+id/mas"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="28dp"
-        android:background="@drawable/button"
-        android:text="Más Populares"
-        android:textColor="@color/black"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/lugares"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/menos"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:background="@drawable/button"
-        android:text="Menos Populares"
-        android:textColor="@color/black"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/mas"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints" />
-
-
-    <Button
-        android:id="@+id/acDep"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
-        android:background="@drawable/button"
-        android:text="Ascendente Dep."
-        android:textColor="@color/black"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintStart_toStartOf="@+id/lugares" />
-
-    <Button
-        android:id="@+id/opDep"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="28dp"
-        android:background="@drawable/button"
-        android:text="Descendente Dep."
-        android:textColor="@color/black"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/acDep"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/acNom"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="28dp"
-        android:background="@drawable/button"
-        android:text="Ascendente Nom."
-        android:textColor="@color/black"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/opDep"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/opNom"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="128dp"
-        android:background="@drawable/button"
-        android:text="Descendente Nom."
-        android:textColor="@color/black"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/acDep"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16"
-        tools:ignore="MissingConstraints" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="180dp"
-        android:id="@+id/restaurante_list"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        />
+</LinearLayout>
