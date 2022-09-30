@@ -3,6 +3,7 @@ package com.example.proyecto.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,14 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.proyecto.Home;
+import com.example.proyecto.ItemsDetail;
 import com.example.proyecto.Model.Lugar;
 import com.example.proyecto.R;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> {
     private List<Lugar> mLugar;
     private Context context;
+    Menu menu;
 
     public LugarAdapter(List<Lugar> mLugar){ this.mLugar = mLugar;}
 
@@ -49,7 +54,9 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
         lugarDepartamentoTextView.setText(lugar.departamento);
         TextView lugarCalificacionTextView = holder.mCalificacion;
         lugarCalificacionTextView.setText(lugar.calificacion);
-        ImageView lugarImage = holder.mRestauranteImage;
+        TextView lugarUrlTextView = holder.mUrlImg;
+        lugarUrlTextView.setText(lugar.img);
+        ImageView lugarImage = holder.mLugarImage;
 
         Glide.with(this.context).load(lugar.img).into(lugarImage);
     }
@@ -61,26 +68,87 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ImageView mRestauranteImage;
+        private ImageView mLugarImage;
         private TextView mNombre;
         private TextView mDepartamento;
         private TextView mCalificacion;
+        private TextView mUrlImg;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
-            mRestauranteImage = (ImageView) itemView.findViewById(R.id.restaurente_image);
-            mNombre = (TextView) itemView.findViewById(R.id.restaurente_name);
+            mLugarImage = (ImageView) itemView.findViewById(R.id.image);
+            mNombre = (TextView) itemView.findViewById(R.id.name);
             mDepartamento = (TextView) itemView.findViewById(R.id.departamento);
             mCalificacion = (TextView) itemView.findViewById(R.id.calificacion);
+            mUrlImg = (TextView) itemView.findViewById(R.id.url);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view){
-            Intent intent = new Intent(view.getContext(), Home.class);
+            Intent intent = new Intent(view.getContext(), ItemsDetail.class);
+            intent.putExtra("eNombre",mNombre.getText().toString());
+            intent.putExtra("eDepartamento", mDepartamento.getText().toString());
+            intent.putExtra("eUrl", mUrlImg.getText().toString());
             view.getContext().startActivity(intent);
         }
 
     }
+    public void ordnarLista(int i) {
+        switch (i){
+            case 0:
+                Collections.sort(mLugar, new Comparator<Lugar>() {
+                    @Override
+                    public int compare(Lugar r1, Lugar r2) {
+                        return r1.getNombre().compareTo(r2.getNombre());
+                    }
+                });
+                break;
+            case 1:
+                Collections.sort(mLugar, new Comparator<Lugar>() {
+                    @Override
+                    public int compare(Lugar r1, Lugar r2) {
+                        return r2.getNombre().compareTo(r1.getNombre());
+                    }
+                });
+                break;
+            case 2:
+                Collections.sort(mLugar, new Comparator<Lugar>() {
+                    @Override
+                    public int compare(Lugar r1, Lugar r2) {
+                        return r1.getDepartamento().compareTo(r2.getDepartamento());
+                    }
+                });
+                break;
+            case 3:
+                Collections.sort(mLugar, new Comparator<Lugar>() {
+                    @Override
+                    public int compare(Lugar r1, Lugar r2) {
+                        return r2.getDepartamento().compareTo(r1.getDepartamento());
+                    }
+                });
+                break;
+            case 4:
+                Collections.sort(mLugar, new Comparator<Lugar>() {
+                    @Override
+                    public int compare(Lugar r1, Lugar r2) {
+                        return r2.getCalificacion().compareTo(r1.getCalificacion()) ;
+                    }
+                });
+                break;
+            case 5:
+                Collections.sort(mLugar, new Comparator<Lugar>() {
+                    @Override
+                    public int compare(Lugar r1, Lugar r2) {
+                        return r1.getCalificacion().compareTo(r2.getCalificacion());
+                    }
+                });
+
+
+        }
+        notifyDataSetChanged();
+
+    }
+
 }

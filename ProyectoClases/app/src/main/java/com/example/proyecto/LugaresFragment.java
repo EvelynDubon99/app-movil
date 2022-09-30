@@ -2,11 +2,15 @@ package com.example.proyecto;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -33,12 +37,15 @@ public class LugaresFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    LugarAdapter adapter = new LugarAdapter(new ArrayList<>());
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private List<Lugar> mLugar;
     private LugarService lugarService;
+    Menu menu;
+
 
     public LugaresFragment() {
         // Required empty public constructor
@@ -74,6 +81,7 @@ public class LugaresFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_lugares, container, false);
         lugarService = Api.getRetrofitInstance().create(LugarService.class);
         Call<List<Lugar>> lugarCall = lugarService.getLugar();
@@ -82,7 +90,7 @@ public class LugaresFragment extends Fragment {
             public void onResponse(Call<List<Lugar>> call, Response<List<Lugar>> response) {
 
                 RecyclerView rvLugar = (RecyclerView) view.findViewById(R.id.lugar_list);
-                LugarAdapter adapter = new LugarAdapter(new ArrayList<>());
+
                 rvLugar.setAdapter(adapter);
                 rvLugar.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -97,4 +105,36 @@ public class LugaresFragment extends Fragment {
         });
         return view;
     }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.sort_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.aznombre){
+            adapter.ordnarLista(0);
+        } if (id == R.id.za_nombre){
+            adapter.ordnarLista(1);
+        }if (id == R.id.az_departamento){
+
+            adapter.ordnarLista(2);
+        }if (id == R.id.za_departamento){
+
+            adapter.ordnarLista(3);
+        }if (id == R.id.mas_populares){
+
+            adapter.ordnarLista(4);
+        }if (id == R.id.menos_populares){
+
+            adapter.ordnarLista(5);
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
