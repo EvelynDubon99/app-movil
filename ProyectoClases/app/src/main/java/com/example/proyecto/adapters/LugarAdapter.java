@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,14 +49,14 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull LugarAdapter.ViewHolder holder, int position) {
         Lugar lugar = mLugar.get(position);
-        TextView lugarNameTextView = holder.mNombre;
-        lugarNameTextView.setText(lugar.nombre);
-        TextView lugarDepartamentoTextView = holder.mDepartamento;
-        lugarDepartamentoTextView.setText(lugar.departamento);
-        TextView lugarCalificacionTextView = holder.mCalificacion;
-        lugarCalificacionTextView.setText(lugar.calificacion);
-        TextView lugarUrlTextView = holder.mUrlImg;
-        lugarUrlTextView.setText(lugar.img);
+        TextView lugarName = holder.mNombre;
+        lugarName.setText(lugar.nombre);
+        TextView lugarDepartamento = holder.mDepartamento;
+        lugarDepartamento.setText(lugar.departamento);
+        RatingBar lugarCalificacion = holder.mCalificacion;
+        lugarCalificacion.setRating(Float.parseFloat(lugar.calificacion));
+        TextView lugarUrl = holder.mUrlImg;
+        lugarUrl.setText(lugar.img);
         ImageView lugarImage = holder.mLugarImage;
 
         Glide.with(this.context).load(lugar.img).into(lugarImage);
@@ -71,7 +72,7 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
         private ImageView mLugarImage;
         private TextView mNombre;
         private TextView mDepartamento;
-        private TextView mCalificacion;
+        private RatingBar mCalificacion;
         private TextView mUrlImg;
 
         public ViewHolder(@NonNull View itemView){
@@ -80,7 +81,7 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
             mLugarImage = (ImageView) itemView.findViewById(R.id.image);
             mNombre = (TextView) itemView.findViewById(R.id.name);
             mDepartamento = (TextView) itemView.findViewById(R.id.departamento);
-            mCalificacion = (TextView) itemView.findViewById(R.id.calificacion);
+            mCalificacion = (RatingBar) itemView.findViewById(R.id.calificacion);
             mUrlImg = (TextView) itemView.findViewById(R.id.url);
             itemView.setOnClickListener(this);
         }

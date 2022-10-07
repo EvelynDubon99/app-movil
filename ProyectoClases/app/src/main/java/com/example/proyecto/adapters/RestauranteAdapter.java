@@ -2,11 +2,14 @@ package com.example.proyecto.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.icu.number.NumberRangeFormatter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +28,9 @@ import java.util.List;
 public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.ViewHolder> {
     private List<Restaurante> mRestaurante;
     private Context context;
+    Restaurante restaurante;
     Menu menu;
+    SharedPreferences sharedPreferences;
 
 
     public RestauranteAdapter(List<Restaurante> mRestaurante){ this.mRestaurante = mRestaurante;}
@@ -48,16 +53,22 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RestauranteAdapter.ViewHolder holder, int position) {
+
         Restaurante restaurante = mRestaurante.get(position);
-        TextView restauranteNameTextView = holder.mNombre;
-        restauranteNameTextView.setText(restaurante.nombre);
-        TextView restauranteDepartamentoTextView = holder.mDepartamento;
-        restauranteDepartamentoTextView.setText(restaurante.departamento);
-        TextView restauranteCalificacionTextView = holder.mCalificacion;
-        restauranteCalificacionTextView.setText(restaurante.calificacion);
-        TextView restauranteUrlTextView = holder.mUrlImg;
-        restauranteUrlTextView.setText(restaurante.img);
+        TextView restauranteName = holder.mNombre;
+        restauranteName.setText(restaurante.nombre);
+        TextView restauranteDepartamento = holder.mDepartamento;
+        restauranteDepartamento.setText(restaurante.departamento);
+        RatingBar restauranteCalificacion = holder.mCalificacion;
+        if(restaurante.calificacion == null){
+            restaurante.calificacion = "0";
+        }
+        restauranteCalificacion.setRating(Float.parseFloat(restaurante.calificacion));
+        TextView restauranteUrl = holder.mUrlImg;
+        restauranteUrl.setText(restaurante.img);
         ImageView restauranteImage = holder.mRestauranteImage;
+        holder._id = restaurante.get_id();
+
 
         Glide.with(this.context).load(restaurante.img).into(restauranteImage);
     }
@@ -68,31 +79,34 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+        private String _id;
         private ImageView mRestauranteImage;
         private TextView mNombre;
         private TextView mDepartamento;
-        private TextView mCalificacion;
+        private RatingBar mCalificacion;
         private TextView mUrlImg;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
+
             mRestauranteImage = (ImageView) itemView.findViewById(R.id.image);
             mNombre = (TextView) itemView.findViewById(R.id.name);
             mDepartamento = (TextView) itemView.findViewById(R.id.departamento);
-            mCalificacion = (TextView) itemView.findViewById(R.id.calificacion);
+            mCalificacion = (RatingBar) itemView.findViewById(R.id.calificacion);
             mUrlImg = (TextView) itemView.findViewById(R.id.url);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view){
+
             Intent intent = new Intent(view.getContext(), ItemsDetail.class);
+            intent.putExtra("id",_id);
             intent.putExtra("eNombre",mNombre.getText().toString());
             intent.putExtra("eDepartamento", mDepartamento.getText().toString());
             intent.putExtra("eUrl", mUrlImg.getText().toString());
-            view.getContext().startActivity(intent);
+             view.getContext().startActivity(intent);
         }
 
     }

@@ -1,4 +1,4 @@
-package com.example.proyecto;
+package com.example.proyecto.fragments;
 
 import android.os.Bundle;
 
@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.proyecto.Model.Lugar;
+import com.example.proyecto.R;
 import com.example.proyecto.adapters.LugarAdapter;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.LugarService;

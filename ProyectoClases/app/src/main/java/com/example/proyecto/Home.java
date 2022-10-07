@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +42,7 @@ public class Home extends AppCompatActivity {
         viewPager2 = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tablayout);
 
+
         viewPager2.setAdapter(new FragmentAdapter(this));
 
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,
@@ -62,6 +65,10 @@ public class Home extends AppCompatActivity {
                                 tab.setIcon(getResources().getDrawable(R.drawable.ic_favorite));
                                 break;
                             }
+                            case 3:{
+                                tab.setText("Perfil");
+                                break;
+                            }
                         }
                     }
                 }); tabLayoutMediator.attach();
@@ -70,6 +77,7 @@ public class Home extends AppCompatActivity {
 
 
     }
+
 
 
 

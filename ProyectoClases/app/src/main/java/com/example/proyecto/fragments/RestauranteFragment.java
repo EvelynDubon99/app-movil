@@ -1,5 +1,7 @@
-package com.example.proyecto;
+package com.example.proyecto.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.proyecto.Model.Restaurante;
+import com.example.proyecto.R;
 import com.example.proyecto.adapters.RestauranteAdapter;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.RestauranteService;
@@ -44,6 +47,7 @@ public class RestauranteFragment extends Fragment {
     private String mParam2;
     private List<Restaurante> mRestaurante;
     private RestauranteService restauranteService;
+    SharedPreferences sharedPreferences;
     Menu menu;
 
     public RestauranteFragment() {
@@ -93,6 +97,7 @@ public class RestauranteFragment extends Fragment {
             public void onResponse(Call<List<Restaurante>> call, Response<List<Restaurante>> response) {
 
                 adapter.reloadData(response.body());
+                adapter.notifyDataSetChanged();
 
             }
 

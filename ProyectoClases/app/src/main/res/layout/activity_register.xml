@@ -126,6 +126,7 @@
             android:background="@drawable/button"
             app:backgroundTint="@null"
             android:text="@string/register"
+            android:onClick="select"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
