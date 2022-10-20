@@ -5,30 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.proyecto.adapters.FragAdap;
-import com.example.proyecto.adapters.FragmentAdapter;
-import com.example.proyecto.databinding.ActivityItemsDetailBinding;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.example.proyecto.adapters.FragLugAdpt;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class ItemsDetail extends AppCompatActivity {
-
+public class ItemDetalleLug extends AppCompatActivity {
     ViewPager2 viewPager2;
     TabLayout tabLayout;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_items_detail);
+        setContentView(R.layout.activity_item_detalle_lug);
+
         viewPager2 = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tablayout);
-        viewPager2.setAdapter(new FragAdap(this));
+        viewPager2.setAdapter(new FragLugAdpt(this));
         Bundle bundle = getIntent().getExtras();
 
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,
@@ -55,4 +48,6 @@ public class ItemsDetail extends AppCompatActivity {
 
 
     }
+
+
 }

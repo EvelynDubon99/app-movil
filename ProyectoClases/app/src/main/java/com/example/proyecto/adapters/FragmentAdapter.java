@@ -25,8 +25,6 @@ public class FragmentAdapter extends FragmentStateAdapter {
                 return new RestauranteFragment();
             case 1:
                 return new LugaresFragment();
-            case 2:
-                return new FavoritosFragment();
             default:
                 return new PerfilUserFragment();
         }
@@ -36,6 +34,6 @@ public class FragmentAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4 ;
+        return 3 ;
     }
 }

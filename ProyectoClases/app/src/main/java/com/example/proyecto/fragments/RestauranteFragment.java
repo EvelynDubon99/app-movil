@@ -1,6 +1,7 @@
 package com.example.proyecto.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -15,7 +16,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 
+import com.example.proyecto.Favoritos;
+import com.example.proyecto.Home;
 import com.example.proyecto.Model.Restaurante;
 import com.example.proyecto.R;
 import com.example.proyecto.adapters.RestauranteAdapter;
@@ -34,7 +39,7 @@ import retrofit2.Response;
  * Use the {@link RestauranteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RestauranteFragment extends Fragment {
+public class RestauranteFragment extends Fragment implements View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,6 +54,7 @@ public class RestauranteFragment extends Fragment {
     private RestauranteService restauranteService;
     SharedPreferences sharedPreferences;
     Menu menu;
+
 
     public RestauranteFragment() {
         // Required empty public constructor
@@ -87,6 +93,7 @@ public class RestauranteFragment extends Fragment {
         setHasOptionsMenu(true);
 
         View view = inflater.inflate(R.layout.fragment_restaurante, container, false);
+
         restauranteService = Api.getRetrofitInstance().create(RestauranteService.class);
         RecyclerView rvRestau = (RecyclerView) view.findViewById(R.id.restaurante_list);
         rvRestau.setAdapter(adapter);
@@ -135,10 +142,21 @@ public class RestauranteFragment extends Fragment {
         }if (id == R.id.menos_populares){
 
             adapter.ordnarLista(5);
+        } if(id == R.id.favorito){
+            Intent intent = new Intent(getContext(), Favoritos.class);
+            startActivity(intent);
         }
 
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    @Override
+    public void onClick(View view) {
+    }
+
+
 
 }

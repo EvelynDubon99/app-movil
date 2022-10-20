@@ -1,13 +1,8 @@
 package com.example.proyecto.Model;
 
-
 import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONObject;
-
-public class Comentario {
-
-
+public class ComenLug {
     public String get_id() {
         return _id;
     }
@@ -18,27 +13,16 @@ public class Comentario {
 
     @SerializedName("_id")
     String _id;
-    public String getCalificacion() {
-        return calificacion;
+    @SerializedName("lugar")
+    public String lugar;
+
+    public String getLugar() {
+        return lugar;
     }
 
-    public void setCalificacion(String calificacion) {
-        this.calificacion = calificacion;
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
     }
-
-
-    public String getRestaurante() {
-        return restaurante;
-    }
-
-    public void setRestaurante(String restaurante) {
-        this.restaurante = restaurante;
-    }
-
-    @SerializedName("restaurante")
-    public String restaurante;
-    @SerializedName("usuario")
-    public User user;
 
     public String getComentarios() {
         return comentarios;
@@ -48,10 +32,18 @@ public class Comentario {
         this.comentarios = comentarios;
     }
 
+    public String getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(String calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    @SerializedName("usuario")
+    public User user;
     @SerializedName("comentarios")
     public String comentarios;
     @SerializedName("calificacion")
     public String calificacion;
-
-
 }

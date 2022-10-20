@@ -13,15 +13,23 @@
         <entry key="..\:/Users/evely/OneDrive/Desktop/Desarollo app docs/ProyectoClases/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/Desarollo app docs/ProyectoClases/app/src/main/res/layout/activity_restaurantes.xml" value="0.10025062656641603" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/Desarollo app docs/ProyectoClases/app/src/main/res/layout/restaurantes.xml" value="0.1" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/button.xml" value="0.175" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/forget.xml" value="0.1835" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/forget2.xml" value="0.1095" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/ic_back.xml" value="0.175" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/ic_back_lr.xml" value="0.128" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/ic_favorite.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/ic_favorite_2.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/ic_favorite_3.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/ic_formato_lr.xml" value="0.1" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/ic_restaurant.xml" value="0.179" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/ic_waze.xml" value="0.1075" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/drawable/selector_fav.xml" value="0.1" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_comentario.xml" value="0.2" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_favoritos.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_fecha_visita.xml" value="0.25" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_home.xml" value="0.1" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_item_detalle_lug.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_items_detail.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_login.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_lugares.xml" value="0.1" />
@@ -29,19 +37,26 @@
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_perfil_user.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_register.xml" value="0.3096446700507614" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/activity_resdetail.xml" value="0.20427350427350427" />
-        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/comentario.xml" value="0.25" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/comenlug.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/comentario.xml" value="0.18" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_com_lugar.xml" value="0.25" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_comentario.xml" value="0.2" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_detalle.xml" value="0.264" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_detalle_lug.xml" value="0.1" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_fav_lugar.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_favoritos.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_lugar_fragment.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_lugares.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_perfil_user.xml" value="0.264" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_restaurante.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_restaurante_fragment.xml" value="0.20512820512820512" />
-        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/item_lugar.xml" value="0.264" />
-        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/item_restaurante.xml" value="0.2" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/item_comentario.xml" value="0.25" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/item_favlug.xml" value="0.264" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/item_favres.xml" value="0.264" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/item_lugar.xml" value="0.1" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/item_restaurante.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/restaurante.xml" value="0.1" />
-        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/menu/sort_menu.xml" value="0.1" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/menu/sort_menu.xml" value="0.264" />
       </map>
     </option>
   </component>

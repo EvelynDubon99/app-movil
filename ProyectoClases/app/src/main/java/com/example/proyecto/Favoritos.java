@@ -2,49 +2,26 @@ package com.example.proyecto;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.proyecto.Model.Restaurante;
-import com.example.proyecto.adapters.FragmentAdapter;
-import com.example.proyecto.adapters.RestauranteAdapter;
-import com.example.proyecto.api.Api;
-import com.example.proyecto.api.RestauranteService;
-import com.google.android.material.badge.BadgeDrawable;
+import com.example.proyecto.adapters.FragAdap;
+import com.example.proyecto.adapters.FragAdapt;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class Home extends AppCompatActivity {
-
+public class Favoritos extends AppCompatActivity {
     ViewPager2 viewPager2;
     TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_favoritos);
         viewPager2 = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tablayout);
-
-
-        viewPager2.setAdapter(new FragmentAdapter(this));
-
+        viewPager2.setAdapter(new FragAdapt(this));
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,
                 new TabLayoutMediator.TabConfigurationStrategy() {
                     @Override
@@ -60,10 +37,6 @@ public class Home extends AppCompatActivity {
                                 tab.setIcon(getResources().getDrawable(R.drawable.ic_location));
                                 break;
                             }
-                            case 2:{
-                                tab.setText("Perfil");
-                                break;
-                            }
                         }
                     }
                 }); tabLayoutMediator.attach();
@@ -71,13 +44,6 @@ public class Home extends AppCompatActivity {
 
 
 
+
     }
-
-
-
-
 }
-
-
-
-

@@ -44,6 +44,17 @@ public class Restaurante {
     @SerializedName("coordenaday")
     public String coordenaday;
 
+    public String getWaze() {
+        return waze;
+    }
+
+    public void setWaze(String waze) {
+        this.waze = waze;
+    }
+
+    @SerializedName("waze")
+    public String waze;
+
     public String getNombre() {
         return nombre;
     }

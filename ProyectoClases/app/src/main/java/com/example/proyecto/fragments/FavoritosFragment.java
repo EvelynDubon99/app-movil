@@ -1,14 +1,30 @@
 package com.example.proyecto.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.proyecto.Model.Comentario;
+import com.example.proyecto.Model.Favres;
 import com.example.proyecto.R;
+import com.example.proyecto.adapters.FavResAdapter;
+import com.example.proyecto.api.Api;
+import com.example.proyecto.api.FavResService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +32,7 @@ import com.example.proyecto.R;
  * create an instance of this fragment.
  */
 public class FavoritosFragment extends Fragment {
+  private FavResAdapter adapter = new FavResAdapter(new ArrayList<>());
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,8 +42,13 @@ public class FavoritosFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private List<Favres> mFavres;
+    private FavResService favResService;
+    private Favres favres;
+    private SharedPreferences sharedPreferences;
 
     public FavoritosFragment() {
+
         // Required empty public constructor
     }
 
@@ -60,7 +82,35 @@ public class FavoritosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+        String id_u = sharedPreferences.getString("_id", " ");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favoritos, container, false);
+        View view = inflater.inflate(R.layout.fragment_favoritos, container, false);
+
+        favResService = Api.getRetrofitInstance().create(FavResService.class);
+        RecyclerView rvFavres = (RecyclerView) view.findViewById(R.id.favres_list);
+        rvFavres.setAdapter(adapter);
+        rvFavres.setLayoutManager(new LinearLayoutManager(getContext()));
+        Call<List<Favres>> comCall = favResService.getuser(id_u);
+        comCall.enqueue(new Callback<List<Favres>>() {
+            @Override
+            public void onResponse(Call<List<Favres>> call, Response<List<Favres>> response) {
+                adapter.reloadData(response.body());
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Favres>> call, Throwable t) {
+
+                System.out.print(t);
+            }
+        });
+
+
+
+
+        return view;
     }
 }

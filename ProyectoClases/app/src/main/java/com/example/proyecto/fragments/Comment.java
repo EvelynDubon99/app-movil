@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,15 +16,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.appcompat.widget.AppCompatButton;
 
-import com.example.proyecto.Home;
-import com.example.proyecto.ItemsDetail;
+import com.example.proyecto.Model.ComenLug;
 import com.example.proyecto.Model.Comentario;
-import com.example.proyecto.Model.Restaurante;
-import com.example.proyecto.Model.User;
 import com.example.proyecto.R;
 import com.example.proyecto.api.Api;
+import com.example.proyecto.api.ComentarioLugService;
 import com.example.proyecto.api.ComentarioService;
 import com.example.proyecto.databinding.ComentarioBinding;
 
@@ -33,8 +29,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DialogComment extends AppCompatDialogFragment{
 
+public class Comment extends AppCompatDialogFragment {
     private EditText escomment;
     private RatingBar calif;
     private TextView id_res, id_user;
@@ -47,7 +43,7 @@ public class DialogComment extends AppCompatDialogFragment{
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         binding = ComentarioBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        android.app.AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         Bundle bundle = getActivity().getIntent().getExtras();
         builder.setView(view);
         escomment = view.findViewById(R.id.escomment);
@@ -58,10 +54,6 @@ public class DialogComment extends AppCompatDialogFragment{
         sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
         String id_u = sharedPreferences.getString("_id", " ");
         id_user.setText(id_u);
-
-
-
-
 
         builder.setPositiveButton("Agregar Comentario", new DialogInterface.OnClickListener() {
             @Override
@@ -82,22 +74,20 @@ public class DialogComment extends AppCompatDialogFragment{
         });
 
         return  builder.create();
-
-
-
     }
+
     public void comentario( String id_user, String id_res, String escomment, String calif) {
-        ComentarioService comentarioService = Api.getRetrofitInstance().create(ComentarioService.class);
-        Call<Comentario> call = comentarioService.postComment(id_user, id_res, escomment, calif);
-        call.enqueue(new Callback<Comentario>() {
+        ComentarioLugService comentarioLugService = Api.getRetrofitInstance().create(ComentarioLugService.class);
+        Call<ComenLug> call = comentarioLugService.postComment(id_user, id_res, escomment, calif);
+        call.enqueue(new Callback<ComenLug>() {
             @Override
-            public void onResponse(Call<Comentario> call, Response<Comentario> response) {
-                Comentario comentario = response.body();
+            public void onResponse(Call<ComenLug> call, Response<ComenLug> response) {
+                ComenLug comenLug = response.body();
 
             }
 
             @Override
-            public void onFailure(Call<Comentario> call, Throwable t) {
+            public void onFailure(Call<ComenLug> call, Throwable t) {
 
             }
         });
