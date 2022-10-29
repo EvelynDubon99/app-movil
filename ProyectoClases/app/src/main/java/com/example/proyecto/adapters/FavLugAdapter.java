@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.example.proyecto.Model.Favlug;
 import com.example.proyecto.R;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.FavLugService;
+import com.example.proyecto.fragments.FechaFragment;
 
 
 import java.util.List;
@@ -56,6 +58,11 @@ public class FavLugAdapter extends RecyclerView.Adapter<FavLugAdapter.ViewHolder
         TextView departament = holder.mDepartamento;
         departament.setText(favlug.lugar.getDepartamento());
         ImageView img = holder.mImge;
+        TextView fecha = holder.mFecha;
+        fecha.setText(favlug.fecha);
+        if(favlug.fecha == null){
+            fecha.setText("Fecha de visita");
+        }
         Glide.with(this.context).load(favlug.lugar.getImg()).into(img);
         if(favlug.getFavoritos() != true){
             favs.setChecked(false);
@@ -91,15 +98,19 @@ public class FavLugAdapter extends RecyclerView.Adapter<FavLugAdapter.ViewHolder
     }
 
     public class ViewHolder extends   RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView mNombre, mDepartamento;
+
+        TextView mNombre, mDepartamento, mFecha;
+        Button mFechaVis;
         ImageView mImge;
         CheckBox mFavs;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            mFechaVis = (Button) itemView.findViewById(R.id.fecha);
             mFavs = (CheckBox) itemView.findViewById(R.id.favs);
             mImge = (ImageView) itemView.findViewById(R.id.image);
             mNombre = (TextView) itemView.findViewById(R.id.name);
             mDepartamento = (TextView)  itemView.findViewById(R.id.departamento);
+            mFecha = (TextView) itemView.findViewById(R.id.fecha_vis);
 
             itemView.setOnClickListener(this);
         }

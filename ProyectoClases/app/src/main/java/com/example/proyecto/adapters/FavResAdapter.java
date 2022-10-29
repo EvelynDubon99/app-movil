@@ -1,6 +1,8 @@
 package com.example.proyecto.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,12 +56,16 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Favres favres = mFavres.get(position);
+        holder.idFavres = favres.get_id();
         CheckBox favs = holder.mFavs;
         TextView nombre = holder.mNombre;
         nombre.setText(favres.restaurante.getNombre());
         TextView departament = holder.mDepartamento;
         departament.setText(favres.restaurante.getDepartamento());
         ImageView img = holder.mImge;
+        TextView fecha = holder.mFecha;
+
+
         Glide.with(this.context).load(favres.restaurante.getImg()).into(img);
 
         if(favres.getFavoritos() != true){
@@ -73,21 +79,31 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 FavResService favResService = Api.getRetrofitInstance().create(FavResService.class);
-                Call<Favres> call = favResService.deletefav(favres.get_id());
-                call.enqueue(new Callback<Favres>() {
+                Call<String> call = favResService.deletefav(favres.get_id());
+                call.enqueue(new Callback<String>() {
                     @Override
-                    public void onResponse(Call<Favres> call, Response<Favres> response) {
-                        Favres favres1 = response.body();
-                        Intent intent = new Intent(context, Favoritos.class);
-                        context.startActivity(intent);
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        mFavres.remove(holder.getAbsoluteAdapterPosition());
+                        notifyItemRemoved(holder.getAbsoluteAdapterPosition());
+                        notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onFailure(Call<Favres> call, Throwable t) {
+                    public void onFailure(Call<String> call, Throwable t) {
+                        System.out.println(t.toString());
 
                     }
                 });
-
+                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                dialog.setView(R.layout.error);
+                dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
             }
         });
     }
@@ -98,9 +114,11 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView mNombre, mDepartamento;
+        String idFavres;
+        TextView mNombre, mDepartamento, mFecha;
         ImageView mImge;
         CheckBox mFavs;
+        int posicion2;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,6 +126,7 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
             mImge = (ImageView) itemView.findViewById(R.id.image);
             mNombre = (TextView) itemView.findViewById(R.id.name);
             mDepartamento = (TextView)  itemView.findViewById(R.id.departamento);
+            mFecha = (TextView) itemView.findViewById(R.id.fecha_vis);
 
             itemView.setOnClickListener(this);
         }

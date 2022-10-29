@@ -4,10 +4,11 @@ package com.example.proyecto.api;
 import com.example.proyecto.Model.User;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface UserService {
     @FormUrlEncoded
@@ -27,5 +28,9 @@ public interface UserService {
     @POST("api/users/login")
     Call<User>postLogin(@Field("correo") String correo,
                          @Field("contra") String contra);
+
+
+    @GET("api/users/{id}")
+    Call<User>getUsuario(@Path("id")String id);
 }
 

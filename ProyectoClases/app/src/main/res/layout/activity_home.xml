@@ -14,9 +14,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/amarrillo"
-        />
+        >
+    <com.google.android.material.tabs.TabItem
+        android:id="@+id/res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restaurante"
+        android:icon="@drawable/ic_restaurant"
 
-    <androidx.viewpager2.widget.ViewPager2
+        />
+    <com.google.android.material.tabs.TabItem
+        android:id="@+id/lug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lugares"
+        android:icon="@drawable/ic_location"
+        
+
+
+        />
+    <com.google.android.material.tabs.TabItem
+        android:id="@+id/perf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Perfil"
+        android:icon="@drawable/ic_person"
+
+
+        />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

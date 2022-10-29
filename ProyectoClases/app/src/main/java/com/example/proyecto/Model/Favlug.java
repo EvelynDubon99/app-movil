@@ -40,4 +40,15 @@ public class Favlug {
 
     @SerializedName("favoritos")
     public Boolean favoritos;
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    @SerializedName("fecha")
+    public String fecha;
 }

@@ -3,8 +3,6 @@ package com.example.proyecto.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONObject;
-
 public class Comentario {
 
 

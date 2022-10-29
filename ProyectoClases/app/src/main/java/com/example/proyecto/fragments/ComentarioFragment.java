@@ -1,10 +1,12 @@
 package com.example.proyecto.fragments;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +22,8 @@ import com.example.proyecto.adapters.ComentarioAdapter;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.ComentarioService;
 import com.example.proyecto.api.RestauranteService;
+import com.example.proyecto.databinding.FragmentComentarioBinding;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +32,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ComentarioFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ComentarioFragment extends Fragment {
+public class ComentarioFragment extends Fragment implements View.OnClickListener{
+    private FragmentComentarioBinding binding;
     private ComentarioAdapter adapter = new ComentarioAdapter(new ArrayList<>());
 
     // TODO: Rename parameter arguments, choose names that match
@@ -48,30 +48,17 @@ public class ComentarioFragment extends Fragment {
     private ComentarioService comentarioService;
     private Comentario comentario;
     private Button delete;
+    private FloatingActionButton comment;
     private SharedPreferences sharedPreferences;
+
 
 
     public ComentarioFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ComentarioFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ComentarioFragment newInstance(String param1, String param2) {
-        ComentarioFragment fragment = new ComentarioFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,10 +74,14 @@ public class ComentarioFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        View view = inflater.inflate(R.layout.fragment_comentario, container, false);
+        binding = FragmentComentarioBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
         Bundle bundle = getActivity().getIntent().getExtras();
         delete = view.findViewById(R.id.delete);
+        comment = view.findViewById(R.id.comment);
+        comment.setOnClickListener(this);
+
+
 
 
 
@@ -117,4 +108,12 @@ public class ComentarioFragment extends Fragment {
     }
 
 
+
+    @Override
+    public void onClick(View view) {
+        Bundle bundle = getActivity().getIntent().getExtras();
+        DialogComment dialogComment = new DialogComment(adapter);
+        dialogComment.show(getParentFragmentManager(), "comentario");
+
+    }
 }

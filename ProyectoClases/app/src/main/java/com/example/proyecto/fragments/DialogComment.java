@@ -4,10 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,17 +15,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.appcompat.widget.AppCompatButton;
 
-import com.example.proyecto.Home;
-import com.example.proyecto.ItemsDetail;
 import com.example.proyecto.Model.Comentario;
-import com.example.proyecto.Model.Restaurante;
-import com.example.proyecto.Model.User;
+import com.example.proyecto.Model.ComentarioModel;
 import com.example.proyecto.R;
+import com.example.proyecto.adapters.ComentarioAdapter;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.ComentarioService;
 import com.example.proyecto.databinding.ComentarioBinding;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +38,12 @@ public class DialogComment extends AppCompatDialogFragment{
     private Button comments;
     private ComentarioBinding binding;
     private SharedPreferences sharedPreferences;
+    ComentarioAdapter adapter;
+
+    public DialogComment(ComentarioAdapter adapter) {
+        this.adapter = adapter;
+    }
+
 
     @NonNull
     @Override
@@ -74,8 +77,6 @@ public class DialogComment extends AppCompatDialogFragment{
                         String.valueOf(calif.getRating())
 
                 );
-                Intent intent = new Intent(getContext(), ComentarioFragment.class);
-                startActivity(intent);
 
 
             }
@@ -88,19 +89,38 @@ public class DialogComment extends AppCompatDialogFragment{
     }
     public void comentario( String id_user, String id_res, String escomment, String calif) {
         ComentarioService comentarioService = Api.getRetrofitInstance().create(ComentarioService.class);
-        Call<Comentario> call = comentarioService.postComment(id_user, id_res, escomment, calif);
-        call.enqueue(new Callback<Comentario>() {
+        Call<ComentarioModel> call = comentarioService.postComment(id_user, id_res, escomment, calif);
+        call.enqueue(new Callback<ComentarioModel>() {
             @Override
-            public void onResponse(Call<Comentario> call, Response<Comentario> response) {
-                Comentario comentario = response.body();
+            public void onResponse(Call<ComentarioModel> call, Response<ComentarioModel> response) {
+                System.out.println("siu");
+                Call<List<Comentario>> comCall = comentarioService.getRes(id_res);
+                comCall.enqueue(new Callback<List<Comentario>>() {
+                    @Override
+                    public void onResponse(Call<List<Comentario>> call, Response<List<Comentario>> response) {
+
+                        adapter.reloadData(response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Comentario>> call, Throwable t) {
+                        System.out.print(t);
+                    }
+                });
+
+
+
 
             }
 
             @Override
-            public void onFailure(Call<Comentario> call, Throwable t) {
+            public void onFailure(Call<ComentarioModel> call, Throwable t) {
+                System.out.println(t.toString());
 
             }
         });
+
+
 
 
     }

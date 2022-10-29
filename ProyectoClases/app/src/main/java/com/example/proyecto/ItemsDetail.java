@@ -2,6 +2,7 @@ package com.example.proyecto;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
@@ -11,7 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.proyecto.adapters.FragAdap;
 import com.example.proyecto.adapters.FragmentAdapter;
-import com.example.proyecto.databinding.ActivityItemsDetailBinding;
+
+import com.example.proyecto.fragments.ComentarioFragment;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;

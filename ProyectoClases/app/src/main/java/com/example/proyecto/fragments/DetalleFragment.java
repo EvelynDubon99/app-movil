@@ -119,7 +119,7 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
 
         TextView itcal = binding.cal;
 
-        itDes.setText(bundle.getString("des"));
+        itDes.setText(bundle.getString("idfav"));
         itcal.setText(bundle.getString("cal"));
 
 
@@ -145,8 +145,8 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
         Bundle bundle = getActivity().getIntent().getExtras();
         switch (view.getId()){
             case R.id.comment:
-                DialogFragment dialogFragment = new DialogComment();
-                dialogFragment.show(getParentFragmentManager(), "comentario");
+                FechaFragment fechaFragment = new FechaFragment();
+                fechaFragment.show(getParentFragmentManager(), "fecha");
                 break;
             case R.id.fav:
                 agregarfav();
@@ -154,7 +154,7 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent2);
                 break;
             case R.id.maps:
-                Uri gmmIntentUri = Uri.parse("geo:" + bundle.getString("latitud") + "," + bundle.getString("longitud")+"?z=28");
+                Uri gmmIntentUri = Uri.parse("google.navigation:q=" + bundle.getString("latitud") + "," + bundle.getString("longitud"));
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 startActivity(mapIntent);

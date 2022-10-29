@@ -3,6 +3,7 @@ package com.example.proyecto.adapters;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.proyecto.fragments.ComentarioFragment;
 import com.example.proyecto.fragments.DetalleFragment;
@@ -10,7 +11,7 @@ import com.example.proyecto.fragments.FavoritosFragment;
 import com.example.proyecto.fragments.LugaresFragment;
 import com.example.proyecto.fragments.RestauranteFragment;
 
-public class FragAdap extends FragmentAdapter{
+public class FragAdap extends FragmentStateAdapter {
     public FragAdap(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }

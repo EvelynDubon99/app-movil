@@ -18,9 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.example.proyecto.Favoritos;
 import com.example.proyecto.Home;
+import com.example.proyecto.Login;
 import com.example.proyecto.Model.Restaurante;
 import com.example.proyecto.R;
 import com.example.proyecto.adapters.RestauranteAdapter;
@@ -52,8 +54,9 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
     private String mParam2;
     private List<Restaurante> mRestaurante;
     private RestauranteService restauranteService;
-    SharedPreferences sharedPreferences;
+
     Menu menu;
+    private SharedPreferences sharedPreferences;
 
 
     public RestauranteFragment() {
@@ -93,16 +96,16 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
         setHasOptionsMenu(true);
 
         View view = inflater.inflate(R.layout.fragment_restaurante, container, false);
-
+        sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+        String id_u = sharedPreferences.getString("_id", " ");
         restauranteService = Api.getRetrofitInstance().create(RestauranteService.class);
         RecyclerView rvRestau = (RecyclerView) view.findViewById(R.id.restaurante_list);
         rvRestau.setAdapter(adapter);
         rvRestau.setLayoutManager(new LinearLayoutManager(getContext()));
-        Call<List<Restaurante>> restauranteCall = restauranteService.getRestaurante();
+        Call<List<Restaurante>> restauranteCall = restauranteService.getRestaurante(id_u);
         restauranteCall.enqueue(new Callback<List<Restaurante>>() {
             @Override
             public void onResponse(Call<List<Restaurante>> call, Response<List<Restaurante>> response) {
-
                 adapter.reloadData(response.body());
                 adapter.notifyDataSetChanged();
 
@@ -110,7 +113,7 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
 
             @Override
             public void onFailure(Call<List<Restaurante>> call, Throwable t) {
-                System.out.print("Error");
+                System.out.print(t.toString());
             }
         });
         return view;

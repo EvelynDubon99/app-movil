@@ -46,6 +46,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <TextView
                     android:id="@+id/calss"
                     android:layout_width="match_parent"
@@ -53,16 +54,15 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
+                    android:text="Calificacion:"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.036"
-                    android:text="Calificacion:"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    />
+                    app:layout_constraintVertical_bias="0.003" />
 
                 <TextView
                     android:id="@+id/cal"
@@ -75,10 +75,10 @@
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.119" />
+                    app:layout_constraintVertical_bias="0.056" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.2" />
+                    app:layout_constraintVertical_bias="0.125" />
 
                 <TextView
                     android:id="@+id/item_detail_nombre"
@@ -110,22 +110,23 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.256" />
+                    app:layout_constraintVertical_bias="0.212" />
 
                 <TextView
+                    android:id="@+id/dept"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/dept"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="10dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
                     android:text="Departamento:"
-                    app:layout_constraintTop_toBottomOf="@id/item_detail_nombre"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/item_detail_nombre" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -139,50 +140,52 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     />
+
                 <TextView
+                    android:id="@+id/des"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/des"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="10dp"
                     android:text="Descripción:"
+                    android:textColor="@color/black"
                     android:textSize="18dp"
-                    android:textColor="@color/black"
-                    app:layout_constraintTop_toBottomOf="@id/item_detail_dept"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/item_detail_dept" />
+
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/descripcion"
+                    android:layout_width="385dp"
+                    android:layout_height="32dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
-                    android:textSize="15dp"
                     android:textColor="@color/black"
-                    app:layout_constraintTop_toBottomOf="@id/des"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/des" />
 
                 <com.getbase.floatingactionbutton.FloatingActionsMenu
                     android:id="@+id/menufloating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="320dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginBottom="10dp"
                     app:fab_addButtonColorNormal="@color/black"
-                    >
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <com.getbase.floatingactionbutton.FloatingActionButton
                         android:id="@+id/comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:fab_colorNormal="@color/amarrillo"
-                        app:fab_icon="@drawable/ic_comment"
+                        app:fab_icon="@drawable/ic_date_range"
 
                         />
 

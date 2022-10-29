@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">proyecto</string>
+    <string name="app_name">Tour por Guatemala</string>
     <string name="login">Login</string>
     <string name="user_name">User Name:</string>
     <string name="welcome">Welcome to Guatemala</string>

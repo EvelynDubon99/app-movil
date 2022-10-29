@@ -3,13 +3,14 @@ package com.example.proyecto.adapters;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.proyecto.fragments.ComLugarFragment;
 import com.example.proyecto.fragments.ComentarioFragment;
 import com.example.proyecto.fragments.DetalleFragment;
 import com.example.proyecto.fragments.DetalleLugFragment;
 
-public class FragLugAdpt extends FragmentAdapter{
+public class FragLugAdpt extends FragmentStateAdapter {
     public FragLugAdpt(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
