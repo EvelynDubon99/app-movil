@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +42,7 @@ public class Login extends AppCompatActivity {
         correo = findViewById(R.id.correo);
         contra = findViewById(R.id.contra);
         login = findViewById(R.id.login);
-
+        final LoadingDialog loadingDialog = new LoadingDialog(Login.this);
 
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         String id = sharedPreferences.getString("_id", null);
@@ -60,6 +61,8 @@ public class Login extends AppCompatActivity {
 
     }
     public void login(View view){
+        final LoadingDialog loadingDialog = new LoadingDialog(Login.this);
+
         if (correo.getText().toString().isEmpty() && contra.getText().toString().isEmpty()){
             // objeto de vista que despliega elemementos emergentes en la IU
             Toast.makeText(Login.this, "Ingresar correo y contraseña",
@@ -71,6 +74,16 @@ public class Login extends AppCompatActivity {
                 correo.getText().toString(),
                 contra.getText().toString()
         );
+        loadingDialog.startLoading();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismissDialog();
+            }
+        }, 3000);
+
+
     }
     private void logear(String correo, String contra) {
         try {

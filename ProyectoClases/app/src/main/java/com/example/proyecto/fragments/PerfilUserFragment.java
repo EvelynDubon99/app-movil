@@ -79,6 +79,7 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
         telefono = view.findViewById(R.id.telefono);
         nombre_user = view.findViewById(R.id.nombre_user);
         apellido_user = view.findViewById(R.id.apellido_user);
+        cerrar.setOnClickListener(this);
 
 
         sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
@@ -125,6 +126,10 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
 
+        getActivity().finish();
     }
 }
