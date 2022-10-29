@@ -57,7 +57,7 @@ public class FechaFragment extends AppCompatDialogFragment {
         String id_u = sharedPreferences.getString("_id", " ");
         fechas = view.findViewById(R.id.fechas);
         id_res = view.findViewById(R.id.id_res);
-        id_res.setText(bundle.getString("aaa"));
+        id_res.setText(bundle.getString("id"));
         id_user = view.findViewById(R.id.id_user);
         id_user.setText(id_u);
         fecha_vista = view.findViewById(R.id.fecha_visita);
