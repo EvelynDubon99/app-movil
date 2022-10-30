@@ -4,10 +4,12 @@ package com.example.proyecto.api;
 import com.example.proyecto.Model.User;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface UserService {
@@ -32,5 +34,9 @@ public interface UserService {
 
     @GET("api/users/{id}")
     Call<User>getUsuario(@Path("id")String id);
+
+
+    @PUT("api/users/{id}")
+    Call<User>updateuser(@Path("id")String id, @Body User user);
 }
 

@@ -23,13 +23,8 @@ public class Register extends AppCompatActivity {
 
 
     private TextView newlogin;
-    private EditText nombre;
-    private EditText apellido;
-    private EditText correo;
+    private EditText nombre, apellido, correo, numero, contra, confcontra;
     private CountryCodePicker nacionalidad;
-    private EditText numero;
-    private EditText contra;
-    private EditText confcontra;
     private Button register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

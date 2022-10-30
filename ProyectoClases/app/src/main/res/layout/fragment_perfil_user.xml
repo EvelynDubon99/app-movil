@@ -11,7 +11,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="220dp"
             android:background="@color/amarrillo"
             android:padding="20dp"
             android:layout_marginBottom="15dp">
@@ -166,14 +166,14 @@
             android:text="Log out"
 
             />
+
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/comment"
+            android:id="@+id/editPer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             app:fab_colorNormal="@color/amarrillo"
-            app:fab_icon="@drawable/ic_edit"
-            />
+            app:fab_icon="@drawable/ic_edit" />
 
 
 </LinearLayout>

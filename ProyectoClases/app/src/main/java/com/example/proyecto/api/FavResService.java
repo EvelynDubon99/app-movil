@@ -27,8 +27,7 @@ public interface FavResService {
     @DELETE("api/fav/{id}")
     Call<String>deletefav(@Path("id")String id);
 
-    @DELETE("api/fav/{id}")
-    Call<Favres>deletefav2(@Path("id")String id);
+
 
 
 }

@@ -16,6 +16,7 @@ import com.example.proyecto.Model.User;
 import com.example.proyecto.R;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.UserService;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import retrofit2.Call;
@@ -34,6 +35,7 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
     private TextInputEditText nombre, correo, nacionalidad, telefono;
     private User user;
     private TextView nombre_user, apellido_user;
+    private FloatingActionButton editPer;
 
 
 
@@ -79,7 +81,16 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
         telefono = view.findViewById(R.id.telefono);
         nombre_user = view.findViewById(R.id.nombre_user);
         apellido_user = view.findViewById(R.id.apellido_user);
+        editPer = view.findViewById(R.id.editPer);
         cerrar.setOnClickListener(this);
+        editPer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Perfilmod perfilmod = new Perfilmod();
+                perfilmod.show(getParentFragmentManager(), "update");
+            }
+        });
+
 
 
         sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
