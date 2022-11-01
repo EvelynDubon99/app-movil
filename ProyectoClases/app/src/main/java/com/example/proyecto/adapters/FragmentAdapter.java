@@ -12,31 +12,28 @@ import com.example.proyecto.fragments.FavoritosFragment;
 import com.example.proyecto.fragments.LugaresFragment;
 import com.example.proyecto.fragments.RestauranteFragment;
 
-public class FragmentAdapter extends FragmentPagerAdapter {
-    int num;
-    public FragmentAdapter(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
-        this.num = behavior;
+public class FragmentAdapter extends FragmentStateAdapter {
+    public FragmentAdapter(@NonNull FragmentActivity fragmentActivity) {
+
+        super(fragmentActivity);
     }
 
     @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
+
         switch (position){
             case 0:
                 return new RestauranteFragment();
             case 1:
                 return new LugaresFragment();
-            case 2:
-                return new PerfilUserFragment();
             default:
-                return null;
-
+                return new PerfilUserFragment();
         }
     }
 
     @Override
-    public int getCount() {
-        return num;
+    public int getItemCount() {
+        return 3 ;
     }
 }

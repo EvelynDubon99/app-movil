@@ -29,6 +29,17 @@ public class Favres {
     public Boolean getFavoritos() {
         return favoritos;
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+    @SerializedName("fecha")
+    public String fecha;
+
     public void setFavoritos(Boolean favoritos) {
         this.favoritos = favoritos;
     }

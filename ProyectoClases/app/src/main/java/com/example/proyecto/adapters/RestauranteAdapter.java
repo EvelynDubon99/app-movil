@@ -92,6 +92,8 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
         restauranteCalificacion.setRating(Float.parseFloat(restaurante.calificacion));
         TextView restauranteUrl = holder.mUrlImg;
         restauranteUrl.setText(restaurante.img);
+        TextView fecha = holder.mFecha;
+        fecha.setText(restaurante.fecha);
         ImageView restauranteImage = holder.mRestauranteImage;
         holder._id = restaurante.get_id();
         holder.coordenadax = restaurante.getCoordenadax();
@@ -206,7 +208,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private String _id, coordenadax, coordenaday, waze, des, cal;
         private ImageView mRestauranteImage;
-        private TextView mNombre;
+        private TextView mNombre, mFecha;
         private TextView mDepartamento;
         private RatingBar mCalificacion;
         private TextView mUrlImg;
@@ -215,7 +217,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-
+            mFecha = (TextView) itemView.findViewById(R.id.fecha);
             mCalificacion = (RatingBar) itemView.findViewById(R.id.calif);
             mFavs = (CheckBox) itemView.findViewById(R.id.fav);
             mRestauranteImage = (ImageView) itemView.findViewById(R.id.image);

@@ -30,16 +30,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <Button
-        android:id="@+id/fecha"
-        android:layout_width="40dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="4dp"
-        android:background="@drawable/ic_date_range"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"

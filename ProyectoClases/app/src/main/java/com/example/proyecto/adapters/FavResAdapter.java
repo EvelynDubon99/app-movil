@@ -64,6 +64,7 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
         departament.setText(favres.restaurante.getDepartamento());
         ImageView img = holder.mImge;
         TextView fecha = holder.mFecha;
+        fecha.setText(favres.fecha);
 
 
         Glide.with(this.context).load(favres.restaurante.getImg()).into(img);

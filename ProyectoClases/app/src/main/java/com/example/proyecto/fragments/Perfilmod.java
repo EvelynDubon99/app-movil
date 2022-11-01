@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,7 +38,16 @@ public class Perfilmod extends AppCompatDialogFragment {
     private EditText nombre, apellido, correo, numero, contra, confcontra;
     private CountryCodePicker nacionalidad;
     private PerfilupdateBinding binding;
+    private TextView nombre2, nombre_user, apellido_user, correo2, telefono ;
 
+    public Perfilmod(TextView nombre_user,TextView apellido_user,TextView nombre2, TextView correo2, TextView telefono ) {
+        this.nombre2 = nombre2;
+        this.nombre_user = nombre_user;
+        this.apellido_user = apellido_user;
+        this.correo2 = correo2;
+        this.telefono = telefono;
+
+    }
 
     @NonNull
     @Override
@@ -92,10 +102,12 @@ public class Perfilmod extends AppCompatDialogFragment {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         User user = response.body();
-                        nombre.getText().toString();
-                        apellido.getText().toString();
-                        correo.getText().toString();
-                        numero.getText().toString();
+                        System.out.println(response.body());
+                        nombre_user.setText(user.nombre);
+                        apellido_user.setText(user.apellido);
+                        nombre2.setText(user.nombre + " "+user.apellido);
+                        correo2.setText(user.correo);
+                        telefono.setText(user.numero);
                     }
 
                     @Override

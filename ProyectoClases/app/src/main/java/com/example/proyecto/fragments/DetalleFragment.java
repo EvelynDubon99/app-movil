@@ -119,12 +119,8 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
 
         TextView itcal = binding.cal;
 
-        itDes.setText(bundle.getString("idfav"));
+        itDes.setText(bundle.getString("des"));
         itcal.setText(bundle.getString("cal"));
-
-
-
-
         itNombre.setText(bundle.getString("eNombre"));
         itDept.setText(bundle.getString("eDepartamento"));
 

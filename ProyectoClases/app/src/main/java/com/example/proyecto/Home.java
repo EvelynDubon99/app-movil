@@ -33,11 +33,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Home extends AppCompatActivity {
-
-    ViewPager viewPager2;
+    ViewPager2 viewPager2;
     TabLayout tabLayout;
-    TabItem tab1, tab2, tab3;
-    FragmentAdapter fragmentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,43 +42,39 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         viewPager2 = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tablayout);
-        tab1 = findViewById(R.id.res);
-        tab2 = findViewById(R.id.lug);
-        tab3 = findViewById(R.id.perf);
 
-        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
-        viewPager2.setAdapter(fragmentAdapter);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager2.setCurrentItem(tab.getPosition());
-                if(tab.getPosition()!=0){
-                    fragmentAdapter.notifyDataSetChanged();
-                }
-                if(tab.getPosition()==1){
-                    fragmentAdapter.notifyDataSetChanged();
-                }
-                if(tab.getPosition()==2){
-                    fragmentAdapter.notifyDataSetChanged();
-                }
+        viewPager2.setAdapter(new FragmentAdapter(this));
 
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        switch (position){
+                            case 0:{
+                                tab.setText("Restaurante");
+                                tab.setIcon(getResources().getDrawable(R.drawable.ic_restaurant));
 
-            }
+                                break;
+                            }
+                            case 1:{
+                                tab.setText("Lugares");
+                                tab.setIcon(getResources().getDrawable(R.drawable.ic_location));
+                                break;
+                            }
+                            case 2:{
+                                tab.setText("Perfil");
+                                tab.setIcon(getResources().getDrawable(R.drawable.ic_person));
+                                break;
+                            }
+                        }
+                    }
+                }); tabLayoutMediator.attach();
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-        });
-        viewPager2.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
     }
-
 
 
 

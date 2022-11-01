@@ -48,6 +48,7 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     RestauranteAdapter adapter = new RestauranteAdapter(new ArrayList<>());
+    RecyclerView rvRestau;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -96,10 +97,10 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
         setHasOptionsMenu(true);
 
         View view = inflater.inflate(R.layout.fragment_restaurante, container, false);
+        rvRestau= (RecyclerView) view.findViewById(R.id.restaurante_list);
         sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
         String id_u = sharedPreferences.getString("_id", " ");
         restauranteService = Api.getRetrofitInstance().create(RestauranteService.class);
-        RecyclerView rvRestau = (RecyclerView) view.findViewById(R.id.restaurante_list);
         rvRestau.setAdapter(adapter);
         rvRestau.setLayoutManager(new LinearLayoutManager(getContext()));
         Call<List<Restaurante>> restauranteCall = restauranteService.getRestaurante(id_u);
@@ -131,6 +132,7 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
         int id = item.getItemId();
         if (id == R.id.aznombre){
             adapter.ordnarLista(0);
+
         } if (id == R.id.za_nombre){
             adapter.ordnarLista(1);
         }if (id == R.id.az_departamento){
@@ -150,6 +152,7 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
             startActivity(intent);
         }
 
+        rvRestau.scrollToPosition(0);
 
         return super.onOptionsItemSelected(item);
     }

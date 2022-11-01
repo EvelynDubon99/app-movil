@@ -86,7 +86,7 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
         editPer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Perfilmod perfilmod = new Perfilmod();
+                Perfilmod perfilmod = new Perfilmod(nombre_user, apellido_user, nombre, correo, telefono);
                 perfilmod.show(getParentFragmentManager(), "update");
             }
         });

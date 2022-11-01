@@ -73,4 +73,10 @@ public class User {
     public void setConfcontra(String confcontra) {
         this.confcontra = confcontra;
     }
+
+    public String nombreCompleto(String nombre,String apellido){
+        return this.nombre+this.apellido;
+    }
+
+
 }

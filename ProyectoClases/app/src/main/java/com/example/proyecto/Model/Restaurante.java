@@ -47,7 +47,8 @@ public class Restaurante {
     public String coordenadax;
     @SerializedName("coordenaday")
     public String coordenaday;
-
+    @SerializedName("fecha")
+    public String fecha;
     @SerializedName("favs")
     public ArrayList<Favorito> favres = new ArrayList<Favorito>();;
 

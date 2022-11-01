@@ -38,4 +38,14 @@ public class Favorito {
     public String usuario;
     public String restaurante;
     public Boolean favoritos;
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String fecha;
 }
