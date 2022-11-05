@@ -21,6 +21,8 @@ import com.example.proyecto.R;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.FavResService;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -135,6 +137,24 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
         @Override
         public void onClick(View view) {
 
+        }
+    }
+    public void ordenar(int i){
+        switch (i){
+            case 0:
+                Collections.sort(mFavres, new Comparator<Favres>() {
+                    @Override
+                    public int compare(Favres f1, Favres f2) {
+                        return f1.getFecha().compareTo(f2.getFecha());
+                    }
+                });
+            case 1:
+                Collections.sort(mFavres, new Comparator<Favres>() {
+                    @Override
+                    public int compare(Favres f1, Favres f2) {
+                        return f2.getFecha().compareTo(f1.getFecha());
+                    }
+                });
         }
     }
 }

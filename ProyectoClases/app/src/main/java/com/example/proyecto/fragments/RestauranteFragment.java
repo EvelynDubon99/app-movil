@@ -147,7 +147,11 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
         }if (id == R.id.menos_populares){
 
             adapter.ordnarLista(5);
-        } if(id == R.id.favorito){
+        } if (id == R.id.ultima_fecha){
+            adapter.ordnarLista(7);
+        }if(id == R.id.fecha_reciente){
+            adapter.ordnarLista(6);
+        }if(id == R.id.favorito){
             Intent intent = new Intent(getContext(), Favoritos.class);
             startActivity(intent);
         }
