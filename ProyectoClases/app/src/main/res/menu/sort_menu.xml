@@ -20,9 +20,22 @@
         android:id="@+id/menos_populares"
         android:title="Menos Populares" />
     <item
+        android:id="@+id/ultima_fecha"
+        android:title="Utilima visita"
+        />
+    <item
+        android:id="@+id/fecha_reciente"
+        android:title="Vistia más reciente"
+        />
+    <item
         android:id="@+id/favorito"
         android:icon="@drawable/ic_favorite"
         android:title="Favoritos"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/Cerca_mi"
+        android:icon="@drawable/ic_map"
+        android:title="Cerca de mi"
         app:showAsAction="always"/>
 
 </menu>

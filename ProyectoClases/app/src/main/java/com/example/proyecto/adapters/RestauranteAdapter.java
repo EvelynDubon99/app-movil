@@ -93,7 +93,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
         TextView restauranteUrl = holder.mUrlImg;
         restauranteUrl.setText(restaurante.img);
         TextView fecha = holder.mFecha;
-        fecha.setText(restaurante.fecha);
+        fecha.setText((CharSequence) restaurante.fecha);
         ImageView restauranteImage = holder.mRestauranteImage;
         holder._id = restaurante.get_id();
         holder.coordenadax = restaurante.getCoordenadax();
@@ -296,6 +296,22 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
                         return r1.getCalificacion().compareTo(r2.getCalificacion());
                     }
                 });
+            case 6:
+                Collections.sort(mRestaurante, new Comparator<Restaurante>() {
+                    @Override
+                    public int compare(Restaurante r1, Restaurante r2) {
+                        return r1.getFecha().compareTo(r2.getFecha()) ;
+                    }
+                });
+                break;
+            case 7:
+                Collections.sort(mRestaurante, new Comparator<Restaurante>() {
+                    @Override
+                    public int compare(Restaurante r1, Restaurante r2) {
+                        return r2.getFecha().compareTo(r1.getFecha());
+                    }
+                });
+                break;
 
 
         }

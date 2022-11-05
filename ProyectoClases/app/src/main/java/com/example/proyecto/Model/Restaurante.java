@@ -4,6 +4,7 @@ import com.example.proyecto.Favoritos;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Restaurante {
@@ -47,8 +48,19 @@ public class Restaurante {
     public String coordenadax;
     @SerializedName("coordenaday")
     public String coordenaday;
+
+
+    public Date getFecha() {
+
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
     @SerializedName("fecha")
-    public String fecha;
+    public Date fecha;
     @SerializedName("favs")
     public ArrayList<Favorito> favres = new ArrayList<Favorito>();;
 
