@@ -50,17 +50,16 @@ public class Restaurante {
     public String coordenaday;
 
 
-    public Date getFecha() {
-
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
     @SerializedName("fecha")
-    public Date fecha;
+    public String fecha;
     @SerializedName("favs")
     public ArrayList<Favorito> favres = new ArrayList<Favorito>();;
 

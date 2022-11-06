@@ -13,6 +13,11 @@ public interface RestauranteService {
     @GET("api/restaurante/{userId}")
     Call<List<Restaurante>> getRestaurante(@Path("userId") String userId);
 
+    @GET("api/restaurante/{userId}")
+    Call<List<Restaurante>> getRestauranteCerca(@Path("userId") String userId, String milatitud,
+                                           String milongitud);
+
+
 
 
 

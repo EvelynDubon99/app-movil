@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.example.proyecto.Cercademi;
 import com.example.proyecto.Favoritos;
 import com.example.proyecto.Home;
 import com.example.proyecto.Login;
@@ -154,7 +155,11 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
         }if(id == R.id.favorito){
             Intent intent = new Intent(getContext(), Favoritos.class);
             startActivity(intent);
+        }if(id == R.id.Cerca_mi){
+            Intent intent = new Intent(getContext(), Cercademi.class);
+            startActivity(intent);
         }
+
 
         rvRestau.scrollToPosition(0);
 
