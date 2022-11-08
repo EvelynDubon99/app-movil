@@ -21,8 +21,7 @@ public interface FavResService {
     @FormUrlEncoded
     @POST("api/fav")
     Call<Favres>postfav(@Field("usuario") String usuario,
-                            @Field("restaurante") String restaurante
-                            );
+                            @Field("restaurante") String restaurante);
 
     @DELETE("api/fav/{id}")
     Call<String>deletefav(@Path("id")String id);

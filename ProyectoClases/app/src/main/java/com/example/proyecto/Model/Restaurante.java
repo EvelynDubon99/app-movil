@@ -49,6 +49,16 @@ public class Restaurante {
     @SerializedName("coordenaday")
     public String coordenaday;
 
+    public Number getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(Number distancia) {
+        this.distancia = distancia;
+    }
+
+    @SerializedName("distancia")
+    public Number distancia;
 
     public String getFecha() {
         return fecha;
