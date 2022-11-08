@@ -7,23 +7,18 @@
     android:orientation="vertical"
     tools:context=".Cercademi">
 
-    <Button
-        android:id="@+id/aaa"
-        android:layout_width="wrap_content"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Agregar Locación"
+        android:background="@color/amarrillo"
         />
-    <TextView
-        android:id="@+id/milongitud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="milongitud"
-        />
-    <TextView
-        android:id="@+id/milatitud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="milatitud"
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
         />
 
 </LinearLayout>

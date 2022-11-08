@@ -300,6 +300,9 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
                 Collections.sort(mRestaurante, new Comparator<Restaurante>() {
                     @Override
                     public int compare(Restaurante r1, Restaurante r2) {
+                        if(r1.getFecha() == null){
+                            r1.setFecha("00/00/00");
+                        }
                         return r1.getFecha().compareTo(r2.getFecha()) ;
                     }
                 });
