@@ -101,15 +101,11 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
         holder.waze = restaurante.getWaze();
         holder.des = restaurante.getDescripcion();
         holder.cal = restaurante.getCalificacion();
-
-
-
-
-
-
-
-
-
+        if(restaurante.favres.size() >0){
+            holder.idFav = restaurante.favres.get(0).get_id();
+        }else{
+            holder.idFav = "";
+        }
 
         Glide.with(this.context).load(restaurante.img).into(restauranteImage);
         favs.setOnClickListener(v -> {
@@ -206,7 +202,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private String _id, coordenadax, coordenaday, waze, des, cal;
+        private String _id, coordenadax, coordenaday, waze, des, cal, idFav;
         private ImageView mRestauranteImage;
         private TextView mNombre, mFecha;
         private TextView mDepartamento;
@@ -235,6 +231,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
             intent.putExtra("id",_id);
             intent.putExtra("cal", cal );
             intent.putExtra("des", des);
+            intent.putExtra("favs", idFav);
             intent.putExtra("latitud", coordenadax);
             intent.putExtra("longitud", coordenaday);
             intent.putExtra("waze", waze);

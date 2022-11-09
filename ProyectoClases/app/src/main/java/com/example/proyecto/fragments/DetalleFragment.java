@@ -1,6 +1,8 @@
 package com.example.proyecto.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +17,7 @@ import androidx.fragment.app.FragmentResultListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -45,8 +48,9 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
 
     private FragmentDetalleBinding binding;
     private FloatingActionsMenu menufloating;
-    private FloatingActionButton comment, maps, waze, fav;
+    private FloatingActionButton comment, maps, waze;
     private Restaurante restaurante;
+    private CheckBox fav;
     SharedPreferences sharedPreferences;
 
 
@@ -102,13 +106,15 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
         comment = view.findViewById(R.id.comment);
         maps = view.findViewById(R.id.maps);
         waze = view.findViewById(R.id.waze);
-        maps.setOnClickListener(this);
-
-        waze.setOnClickListener(this);
         fav = view.findViewById(R.id.fav);
-
+        if(bundle.get("favs").toString().isEmpty()){
+            fav.setChecked(false);
+        }else{
+            fav.setChecked(true);
+        }
         fav.setOnClickListener(this);
-
+        maps.setOnClickListener(this);
+        waze.setOnClickListener(this);
         comment.setOnClickListener(this);
 
 
@@ -120,7 +126,7 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
         TextView itcal = binding.cal;
 
         itDes.setText(bundle.getString("des"));
-        itcal.setText(bundle.getString("cal"));
+        itcal.setText(bundle.getString("cal") +" " + "/ 5");
         itNombre.setText(bundle.getString("eNombre"));
         itDept.setText(bundle.getString("eDepartamento"));
 
@@ -144,11 +150,7 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
                 FechaFragment fechaFragment = new FechaFragment();
                 fechaFragment.show(getParentFragmentManager(), "fecha");
                 break;
-            case R.id.fav:
-                agregarfav();
-                Intent intent2 = new Intent(getContext(), Favoritos.class);
-                startActivity(intent2);
-                break;
+
             case R.id.maps:
                 Uri gmmIntentUri = Uri.parse("google.navigation:q=" + bundle.getString("latitud") + "," + bundle.getString("longitud"));
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -161,6 +163,32 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
                 Intent intent1 = new Intent(Intent.ACTION_VIEW, chosser);
                 startActivity(intent1);
                 break;
+            case R.id.fav:
+                if(fav.isChecked()){
+                    agregarfav();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setView(R.layout.done);
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }else{
+                    deleteFavoritos(bundle.getString("favs"));
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                    dialog.setView(R.layout.error);
+                    dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = dialog.create();
+                    alertDialog.show();
+                }
 
 
 
@@ -195,6 +223,21 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
         });
 
 
+    }
+    private void deleteFavoritos(String id_fav){
+        FavResService favResService = Api.getRetrofitInstance().create(FavResService.class);
+        Call<String> call = favResService.deletefav(id_fav);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
 
 }

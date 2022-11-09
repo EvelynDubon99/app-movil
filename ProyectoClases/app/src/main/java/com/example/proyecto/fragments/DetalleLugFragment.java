@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -39,7 +40,8 @@ import retrofit2.Response;
 public class DetalleLugFragment extends Fragment implements View.OnClickListener {
     private FragmentDetalleBinding binding;
     private FloatingActionsMenu menufloating;
-    private FloatingActionButton comment, maps, waze, fav;
+    private FloatingActionButton comment, maps, waze;
+    private CheckBox fav;
     private Lugar lugar;
     private SharedPreferences sharedPreferences;
 
@@ -132,9 +134,7 @@ public class DetalleLugFragment extends Fragment implements View.OnClickListener
                 comment.show(getParentFragmentManager(), "comentario");
                 break;
             case R.id.fav:
-                agregarfav();
-                Intent intent2 = new Intent(getContext(), Favoritos.class);
-                startActivity(intent2);
+
                 break;
             case R.id.maps:
                 Uri gmmIntentUri = Uri.parse("geo:" + bundle.getString("latitud") + "," + bundle.getString("longitud")+"?z=18");

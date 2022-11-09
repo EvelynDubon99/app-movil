@@ -58,12 +58,23 @@
                     android:text="Calificación"
                     android:textSize="16sp"
                     android:textColor="@color/black"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.028" />
+                <CheckBox
+                    android:id="@+id/fav"
+                    android:layout_width="40dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:button="@drawable/selector_fav"
+                    app:useMaterialThemeColors="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/cal"
@@ -89,6 +100,7 @@
                     android:layout_marginEnd="10dp"
                     android:text="Nombre del restaurante:"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +129,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="Departamento:"
+                    android:textStyle="bold"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -145,6 +158,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
+                    android:textStyle="bold"
                     android:text="Descripcion:"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -160,11 +174,14 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="10dp"
                     android:text="El mejor restaurante"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.084"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/des" />
+                    app:layout_constraintTop_toBottomOf="@id/des"
+
+                    />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -190,14 +207,6 @@
 
                 />
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fav"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/amarrillo"
-                app:fab_icon="@drawable/ic_favorite_3"
-
-                />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/maps"

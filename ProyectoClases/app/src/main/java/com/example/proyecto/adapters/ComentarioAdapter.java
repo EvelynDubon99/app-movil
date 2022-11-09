@@ -99,35 +99,49 @@ public class ComentarioAdapter extends RecyclerView.Adapter<ComentarioAdapter.Vi
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                ComentarioService comentarioService = Api.getRetrofitInstance().create(ComentarioService.class);
-                Call<String> comCall = comentarioService.deleteComment(comentario.get_id());
-                comCall.enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        mComentario.remove(holder.getAbsoluteAdapterPosition());
-                        notifyItemRemoved(holder.getAbsoluteAdapterPosition());
-                        notifyDataSetChanged();
-
-
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        System.out.println(t.toString());
-                    }
-                });
                 AlertDialog.Builder dialog = new AlertDialog.Builder(context);
                 dialog.setView(R.layout.comentarioeliminado);
-                dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
+                        ComentarioService comentarioService = Api.getRetrofitInstance().create(ComentarioService.class);
+                        Call<String> comCall = comentarioService.deleteComment(comentario.get_id());
+                        comCall.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                mComentario.remove(holder.getAbsoluteAdapterPosition());
+                                notifyItemRemoved(holder.getAbsoluteAdapterPosition());
+                                notifyDataSetChanged();
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                System.out.println(t.toString());
+                            }
+                        });
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                        dialog.setView(R.layout.comentarioeliminado);
+                        dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        AlertDialog alertDialog = dialog.create();
+                        alertDialog.show();
                     }
+
                 });
+              dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialogInterface, int i) {
+                      dialogInterface.dismiss();
+                  }
+              });
                 AlertDialog alertDialog = dialog.create();
                 alertDialog.show();
+
             }
         });
 
