@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.proyecto.Favoritos;
 import com.example.proyecto.Model.Favres;
+import com.example.proyecto.Model.Restaurante;
 import com.example.proyecto.R;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.FavResService;
@@ -32,6 +34,7 @@ import retrofit2.Response;
 public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder>  {
     private List<Favres> mFavres;
     private Context context;
+    private SharedPreferences sharedPreferences;
 
 
     public FavResAdapter(List<Favres> mFavres){
@@ -86,9 +89,23 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
                 call.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        mFavres.remove(holder.getAbsoluteAdapterPosition());
-                        notifyItemRemoved(holder.getAbsoluteAdapterPosition());
-                        notifyDataSetChanged();
+                        sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                        String id_user = sharedPreferences.getString("_id"," ");
+                        FavResService fs = Api.getRetrofitInstance().create(FavResService.class);
+                        Call<List<Favres>> comCall = favResService.getuser(id_user);
+                        comCall.enqueue(new Callback<List<Favres>>() {
+                            @Override
+                            public void onResponse(Call<List<Favres>> call, Response<List<Favres>> response) {
+                                reloadData(response.body());
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<Favres>> call, Throwable t) {
+
+                                System.out.print(t);
+                            }
+                        });
                     }
 
                     @Override
@@ -139,22 +156,94 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
 
         }
     }
-    public void ordenar(int i){
+    public void ordnarLista(int i) {
         switch (i){
             case 0:
                 Collections.sort(mFavres, new Comparator<Favres>() {
                     @Override
                     public int compare(Favres f1, Favres f2) {
-                        return f1.getFecha().compareTo(f2.getFecha());
+                        return f1.restaurante.getNombre().compareTo(
+                                f2.restaurante.getNombre());
                     }
                 });
+                break;
             case 1:
                 Collections.sort(mFavres, new Comparator<Favres>() {
                     @Override
                     public int compare(Favres f1, Favres f2) {
-                        return f2.getFecha().compareTo(f1.getFecha());
+                        return f2.restaurante.getNombre().compareTo(
+                                f1.restaurante.getNombre());
                     }
                 });
+                break;
+            case 2:
+                Collections.sort(mFavres, new Comparator<Favres>() {
+                    @Override
+                    public int compare(Favres f1, Favres f2) {
+                        return f1.restaurante.getDepartamento().compareTo(
+                                f2.restaurante.getDepartamento());
+                    }
+                });
+                break;
+            case 3:
+                Collections.sort(mFavres, new Comparator<Favres>() {
+                    @Override
+                    public int compare(Favres f1, Favres f2) {
+                        return f2.restaurante.getDepartamento().compareTo(
+                                f1.restaurante.getDepartamento());
+                    }
+                });
+                break;
+            case 4:
+                Collections.sort(mFavres, new Comparator<Favres>() {
+                    @Override
+                    public int compare(Favres f1, Favres f2) {
+                        return f2.restaurante.getCalificacion().compareTo(
+                                f1.restaurante.getCalificacion());
+                    }
+                });
+                break;
+            case 5:
+                Collections.sort(mFavres, new Comparator<Favres>() {
+                    @Override
+                    public int compare(Favres f1, Favres f2) {
+                        return f1.restaurante.getCalificacion().compareTo(
+                                f2.restaurante.getCalificacion());
+                    }
+                });
+            case 6:
+                Collections.sort(mFavres, new Comparator<Favres>() {
+                    @Override
+                    public int compare(Favres f1, Favres f2) {
+                        if(f1.getFecha() == null){
+                            f1.setFecha("00/00/00");
+                        }
+
+                        return f1.getFecha().compareTo(
+                                f2.getFecha());
+                    }
+                });
+                break;
+            case 7:
+                Collections.sort(mFavres, new Comparator<Favres>() {
+                    @Override
+                    public int compare(Favres f1, Favres f2) {
+
+                        if(f2.getFecha() == null){
+                            f2.setFecha("00/00/00");
+                        }
+                        if(f1.getFecha() == null){
+                            f1.setFecha("00/00/00");
+                        }
+                        return f2.getFecha().compareTo(
+                                f1.getFecha());
+                    }
+                });
+                break;
+
+
         }
+        notifyDataSetChanged();
+
     }
 }

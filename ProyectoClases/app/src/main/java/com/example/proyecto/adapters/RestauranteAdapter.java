@@ -253,6 +253,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
                 Collections.sort(mRestaurante, new Comparator<Restaurante>() {
                     @Override
                     public int compare(Restaurante r1, Restaurante r2) {
+
                         return r1.getNombre().compareTo(r2.getNombre());
                     }
                 });
