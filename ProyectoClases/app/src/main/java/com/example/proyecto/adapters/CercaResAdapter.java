@@ -23,6 +23,9 @@ import com.example.proyecto.api.Api;
 import com.example.proyecto.api.FavResService;
 import com.example.proyecto.api.RestauranteService;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,13 +36,16 @@ public class CercaResAdapter extends RecyclerView.Adapter<CercaResAdapter.ViewHo
     private List<Restaurante> mRestaurante;
     private Context context;
     Restaurante restaurante;
+    private List<Restaurante> restaurantesList = new ArrayList<>();
     SharedPreferences sharedPreferences;
+
 
     public CercaResAdapter(List<Restaurante> mRestaurante){
         this.mRestaurante = mRestaurante;
     }
     public void reloadData(List<Restaurante> restaurantes){
         this.mRestaurante = restaurantes;
+        this.restaurantesList.addAll(restaurantes);
         notifyDataSetChanged();
     }
     @NonNull
@@ -56,6 +62,7 @@ public class CercaResAdapter extends RecyclerView.Adapter<CercaResAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Restaurante restaurante = mRestaurante.get(position);
+        Float disnt = restaurante.distancia;
         TextView restauranteName = holder.mNombre;
         CheckBox favs = holder.mFavs;
         restauranteName.setText(restaurante.nombre);
@@ -110,11 +117,118 @@ public class CercaResAdapter extends RecyclerView.Adapter<CercaResAdapter.ViewHo
             }
         });
     }
+    public void ditancia(int i){
+        switch (i){
+            case 0:
+                mRestaurante = restaurantesList;
+                List<Restaurante> mCopia = new ArrayList<>();
+                mCopia.clear();
+                for (Restaurante restaurente:
+                     mRestaurante ) {
+                    if(restaurente.getDistancia() <= 5){
+                        mCopia.add(restaurente);
+                    }
+                }
 
+                this.mRestaurante = mCopia;
+                Collections.sort(mRestaurante, new Comparator<Restaurante>() {
+                    @Override
+                    public int compare(Restaurante r1, Restaurante r2) {
+                        return r1.distancia.compareTo(r2.distancia);
+                    }
+                });
+                notifyDataSetChanged();
+                break;
+            case 1:
+                mRestaurante = restaurantesList;
+                List<Restaurante> mCopia2 = new ArrayList<>();
+                mCopia2.clear();
+                for (Restaurante restaurente:
+                        mRestaurante ) {
+                    if(restaurente.getDistancia() <= 10){
+                        mCopia2.add(restaurente);
+                    }
+                }
+                this.mRestaurante = mCopia2;
+                Collections.sort(mRestaurante, new Comparator<Restaurante>() {
+                    @Override
+                    public int compare(Restaurante r1, Restaurante r2) {
+                        return r1.distancia.compareTo(r2.distancia);
+                    }
+                });
+                notifyDataSetChanged();
+                break;
+            case 2:
+                mRestaurante = restaurantesList;
+                List<Restaurante> mCopia3 = new ArrayList<>();
+                mCopia3.clear();
+                for (Restaurante restaurente:
+                        mRestaurante ) {
+                    if(restaurente.getDistancia() <= 20){
+                        mCopia3.add(restaurente);
+                    }
+                }
+                this.mRestaurante = mCopia3;
+                Collections.sort(mRestaurante, new Comparator<Restaurante>() {
+                    @Override
+                    public int compare(Restaurante r1, Restaurante r2) {
+                        return r1.distancia.compareTo(r2.distancia);
+                    }
+                });
+                notifyDataSetChanged();
+                break;
+            case 3:
+                mRestaurante = restaurantesList;
+                List<Restaurante> mCopia4 = new ArrayList<>();
+                mCopia4.clear();
+                for (Restaurante restaurente:
+                        mRestaurante ) {
+                    if( restaurente.getDistancia() > 20){
+                        if(restaurente.getDistancia() <= 50){
+                            mCopia4.add(restaurente);
+                        }
+
+                    }
+                }
+                this.mRestaurante = mCopia4;
+                Collections.sort(mRestaurante, new Comparator<Restaurante>() {
+                    @Override
+                    public int compare(Restaurante r1, Restaurante r2) {
+                        return r1.distancia.compareTo(r2.distancia);
+                    }
+                });
+                notifyDataSetChanged();
+                break;
+            case 4:
+                mRestaurante = restaurantesList;
+                List<Restaurante> mCopia5 = new ArrayList<>();
+                mCopia5.clear();
+                for (Restaurante restaurente:
+                        mRestaurante ) {
+                    if(restaurente.getDistancia() > 50){
+                        if (restaurante.getDistancia() <=100){
+                            mCopia5.add(restaurente);
+                        }
+                    }
+                }
+                this.mRestaurante = mCopia5;
+                Collections.sort(mRestaurante, new Comparator<Restaurante>() {
+                    @Override
+                    public int compare(Restaurante r1, Restaurante r2) {
+                        return r1.distancia.compareTo(r2.distancia);
+                    }
+                });
+                notifyDataSetChanged();
+                break;
+
+        }
+
+    }
     @Override
     public int getItemCount() {
         return mRestaurante.size();
     }
+
     private void postFavorito(String id_res){
         Favres favres = new Favres();
         sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
@@ -172,4 +286,10 @@ public class CercaResAdapter extends RecyclerView.Adapter<CercaResAdapter.ViewHo
             mUrlImg = (TextView) itemView.findViewById(R.id.url);
         }
     }
+
+
+
+
+
+
 }

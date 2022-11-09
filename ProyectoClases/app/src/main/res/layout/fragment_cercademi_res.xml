@@ -4,35 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.CercademiResFragment"
-    android:layout_marginTop="10dp">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp">
-        <TextView
-            android:id="@+id/milatitud"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="28dp"
-            android:layout_marginTop="25dp"
-
-            />
-        <TextView
-            android:id="@+id/milongitud"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="28dp"
-            android:layout_marginTop="25dp"
-            />
-    </LinearLayout>
+    >
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/restaurante_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="25dp"/>
+       />
 
 
 </FrameLayout>

@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -51,11 +55,11 @@ public class CercademiResFragment extends Fragment {
     private List<Restaurante> mRestaurante;
     private RestauranteService restauranteService;
     private SharedPreferences sharedPreferences;
-    private TextView milatitud2, milongitud2;
     private Number milatitud, milongitud;
-    CercaResAdapter adapter = new CercaResAdapter(new ArrayList<>());
-    RecyclerView rvRestau;
-    FusedLocationProviderClient fusedLocationProviderClient;
+    private CercaResAdapter adapter = new CercaResAdapter(new ArrayList<>());
+    private RecyclerView rvRestau;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Menu menu;
 
 
     public CercademiResFragment() {
@@ -84,11 +88,8 @@ public class CercademiResFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_cercademi_res, container, false);
-        milatitud2 = view.findViewById(R.id.milatitud);
-        milongitud2 = view.findViewById(R.id.milongitud);
-        milatitud = 14.514777685376021;
-        milongitud = -90.57205469408528;
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -103,11 +104,32 @@ public class CercademiResFragment extends Fragment {
 
                             addresses = geocoder.getFromLocation(
                                     location.getLatitude(), location.getLongitude(), 1
+
                             );
-                           milatitud2.setText(""+ addresses.get(0).getLatitude());
 
-                            milongitud2.setText(""+ addresses.get(0).getLongitude());
+                            milatitud = addresses.get(0).getLatitude();
+                            milongitud = addresses.get(0).getLongitude();
+                            rvRestau = (RecyclerView) view.findViewById(R.id.restaurante_list);
+                            sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+                            String id_u = sharedPreferences.getString("_id", " ");
+                            restauranteService = Api.getRetrofitInstance().create(RestauranteService.class);
+                            rvRestau.setAdapter(adapter);
+                            rvRestau.setLayoutManager(new LinearLayoutManager(getContext()));
 
+                            Call<List<Restaurante>> call = restauranteService.getRestauranteCerca(id_u, milatitud, milongitud);
+                            call.enqueue(new Callback<List<Restaurante>>() {
+                                @Override
+                                public void onResponse(Call<List<Restaurante>> call, Response<List<Restaurante>> response) {
+                                    adapter.reloadData(response.body());
+                                    System.out.println(response.body());
+                                    adapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onFailure(Call<List<Restaurante>> call, Throwable t) {
+
+                                }
+                            });
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -119,28 +141,34 @@ public class CercademiResFragment extends Fragment {
                     Manifest.permission.ACCESS_FINE_LOCATION},44);
 
         }
-        rvRestau = (RecyclerView) view.findViewById(R.id.restaurante_list);
-        sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
-        String id_u = sharedPreferences.getString("_id", " ");
-        restauranteService = Api.getRetrofitInstance().create(RestauranteService.class);
-        rvRestau.setAdapter(adapter);
-        rvRestau.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Call<List<Restaurante>> call = restauranteService.getRestauranteCerca(id_u, milatitud, milongitud);
-        call.enqueue(new Callback<List<Restaurante>>() {
-            @Override
-            public void onResponse(Call<List<Restaurante>> call, Response<List<Restaurante>> response) {
-                adapter.reloadData(response.body());
-                System.out.println(response.body());
-                adapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onFailure(Call<List<Restaurante>> call, Throwable t) {
 
-            }
-        });
+
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.cercademi_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.cinco){
+            adapter.ditancia(0);
+        }if(id == R.id.diez){
+            adapter.ditancia(1);
+        }if(id == R.id.veinte){
+            adapter.ditancia(2);
+        }if(id == R.id.cincuenta){
+            adapter.ditancia(3);
+        }if(id == R.id.cien){
+            adapter.ditancia(4);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
