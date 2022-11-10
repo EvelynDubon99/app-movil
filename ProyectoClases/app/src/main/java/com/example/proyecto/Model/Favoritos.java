@@ -2,7 +2,7 @@ package com.example.proyecto.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Favlug {
+public class Favoritos {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
@@ -25,8 +25,16 @@ public class Favlug {
     }
 
 
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
     @SerializedName("lugar")
-    public Lugar lugar;
+    public String lugar;
 
 
     public Boolean getFavoritos() {

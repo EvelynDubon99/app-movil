@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -70,8 +71,11 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
         ImageView img = holder.mImge;
         TextView fecha = holder.mFecha;
         fecha.setText(favres.fecha);
-
-
+        RatingBar calificacion = holder.mCalificacion;
+        if(favres.restaurante.calificacion == null){
+            favres.restaurante.calificacion = "0";
+        }
+        calificacion.setRating(Float.parseFloat(favres.restaurante.calificacion));
         Glide.with(this.context).load(favres.restaurante.getImg()).into(img);
 
         if(favres.getFavoritos() != true){
@@ -135,16 +139,18 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         String idFavres;
+        RatingBar mCalificacion;
         TextView mNombre, mDepartamento, mFecha;
         ImageView mImge;
         CheckBox mFavs;
-        int posicion2;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             mFavs = (CheckBox) itemView.findViewById(R.id.favs);
             mImge = (ImageView) itemView.findViewById(R.id.image);
             mNombre = (TextView) itemView.findViewById(R.id.name);
+            mCalificacion = (RatingBar) itemView.findViewById(R.id.calificacion);
             mDepartamento = (TextView)  itemView.findViewById(R.id.departamento);
             mFecha = (TextView) itemView.findViewById(R.id.fecha_vis);
 
@@ -217,6 +223,9 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
                     public int compare(Favres f1, Favres f2) {
                         if(f1.getFecha() == null){
                             f1.setFecha("00/00/00");
+                        }
+                        if(f2.getFecha() == null){
+                            f2.setFecha("00/00/00");
                         }
 
                         return f1.getFecha().compareTo(

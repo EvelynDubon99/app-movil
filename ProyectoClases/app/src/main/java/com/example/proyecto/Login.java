@@ -99,15 +99,15 @@ public class Login extends AppCompatActivity {
                         editor.commit();
                         Intent intent = new Intent(getApplicationContext(), Home.class);
                         startActivity(intent);
+                        finish();
                     } else{
-                        Toast.makeText(Login.this, user.msg, Toast.LENGTH_SHORT).show();
+
                     }
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    Toast.makeText(Login.this, "Error en conexion",
-                            Toast.LENGTH_SHORT).show();
+
                 }
             });
         } catch(Exception e){

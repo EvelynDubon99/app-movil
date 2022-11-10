@@ -2,6 +2,7 @@ package com.example.proyecto.api;
 
 import com.example.proyecto.Model.ComenLug;
 import com.example.proyecto.Model.Comentario;
+import com.example.proyecto.Model.Comentario2;
 
 import java.util.List;
 
@@ -17,15 +18,15 @@ public interface ComentarioLugService {
 
     @FormUrlEncoded
     @POST("api/comentlug")
-    Call<ComenLug>postComment(@Field("usuario") String usuario,
-                              @Field("lugar") String lugar,
-                              @Field("comentarios") String comentarios,
-                              @Field("calificacion") String calificacion);
+    Call<Comentario2>postComment(@Field("usuario") String usuario,
+                                 @Field("lugar") String lugar,
+                                 @Field("comentarios") String comentarios,
+                                 @Field("calificacion") String calificacion);
 
 
     @GET("api/comentlug/lugar/{lugar}")
     Call<List<ComenLug>>getLug(@Path("lugar") String lugar);
 
     @DELETE("api/comentlug/{id}")
-    Call<ComenLug>deleteComment(@Path("id") String id);
+    Call<String>deleteComment(@Path("id") String id);
 }

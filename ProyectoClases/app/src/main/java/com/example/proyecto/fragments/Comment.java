@@ -19,11 +19,16 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.proyecto.Model.ComenLug;
 import com.example.proyecto.Model.Comentario;
+import com.example.proyecto.Model.Comentario2;
+import com.example.proyecto.Model.ComentarioModel;
 import com.example.proyecto.R;
+import com.example.proyecto.adapters.ComenLugAdapter;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.ComentarioLugService;
 import com.example.proyecto.api.ComentarioService;
 import com.example.proyecto.databinding.ComentarioBinding;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +42,8 @@ public class Comment extends AppCompatDialogFragment {
     private Button comments;
     private ComentarioBinding binding;
     private SharedPreferences sharedPreferences;
+    ComenLugAdapter adapter;
+    public Comment(ComenLugAdapter adapter){this.adapter = adapter;}
 
     @NonNull
     @Override
@@ -66,9 +73,6 @@ public class Comment extends AppCompatDialogFragment {
                         String.valueOf(calif.getRating())
 
                 );
-                Intent intent = new Intent(getContext(), ComentarioFragment.class);
-                startActivity(intent);
-
 
             }
         });
@@ -78,17 +82,28 @@ public class Comment extends AppCompatDialogFragment {
 
     public void comentario( String id_user, String id_res, String escomment, String calif) {
         ComentarioLugService comentarioLugService = Api.getRetrofitInstance().create(ComentarioLugService.class);
-        Call<ComenLug> call = comentarioLugService.postComment(id_user, id_res, escomment, calif);
-        call.enqueue(new Callback<ComenLug>() {
+        Call<Comentario2> call = comentarioLugService.postComment(id_user, id_res, escomment, calif);
+        call.enqueue(new Callback<Comentario2>() {
             @Override
-            public void onResponse(Call<ComenLug> call, Response<ComenLug> response) {
-                ComenLug comenLug = response.body();
+            public void onResponse(Call<Comentario2> call, Response<Comentario2> response) {
+                Call<List<ComenLug>> comCall = comentarioLugService.getLug(id_res);
+                comCall.enqueue(new Callback<List<ComenLug>>() {
+                    @Override
+                    public void onResponse(Call<List<ComenLug>> call, Response<List<ComenLug>> response) {
+                        adapter.reloadData(response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<ComenLug>> call, Throwable t) {
+                        System.out.print(t);
+                    }
+                });
 
             }
 
             @Override
-            public void onFailure(Call<ComenLug> call, Throwable t) {
-
+            public void onFailure(Call<Comentario2> call, Throwable t) {
+                System.out.println(t.toString());
             }
         });
 

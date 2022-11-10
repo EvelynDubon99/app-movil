@@ -55,7 +55,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="Calificación"
+                    android:text="Calificación:"
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:textStyle="bold"

@@ -25,7 +25,7 @@ public interface FavLugService {
                         @Field("lugar") String lugar);
 
     @DELETE("api/favlug/{id}")
-    Call<Favlug>deletefav(@Path("id") String id);
+    Call<String>deletefav(@Path("id") String id);
 
 
 }
