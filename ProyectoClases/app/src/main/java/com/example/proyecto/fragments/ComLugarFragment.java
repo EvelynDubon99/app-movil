@@ -16,6 +16,7 @@ import com.example.proyecto.R;
 import com.example.proyecto.adapters.ComenLugAdapter;
 import com.example.proyecto.api.Api;
 import com.example.proyecto.api.ComentarioLugService;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ import retrofit2.Response;
  * Use the {@link ComLugarFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ComLugarFragment extends Fragment {
+public class ComLugarFragment extends Fragment implements View.OnClickListener {
     private ComenLugAdapter adapter = new ComenLugAdapter(new ArrayList<>());
 
     // TODO: Rename parameter arguments, choose names that match
@@ -44,6 +45,7 @@ public class ComLugarFragment extends Fragment {
     private ComentarioLugService comentarioLugService;
     private ComenLug comenLug;
     private SharedPreferences sharedPreferences;
+    private FloatingActionButton comment;
 
     public ComLugarFragment() {
         // Required empty public constructor
@@ -81,6 +83,9 @@ public class ComLugarFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_com_lugar, container, false);
         Bundle bundle = getActivity().getIntent().getExtras();
+        comment = view.findViewById(R.id.comment);
+        comment.setOnClickListener(this);
+
         comentarioLugService = Api.getRetrofitInstance().create(ComentarioLugService.class);
         RecyclerView rvComent = (RecyclerView) view.findViewById(R.id.comentario_list);
         rvComent.setAdapter(adapter);
@@ -102,5 +107,12 @@ public class ComLugarFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        Bundle bundle = getActivity().getIntent().getExtras();
+        Comment comment = new Comment(adapter);
+        comment.show(getParentFragmentManager(), "comentario");
     }
 }

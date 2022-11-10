@@ -1,6 +1,8 @@
 package com.example.proyecto.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -76,21 +78,48 @@ public class ComenLugAdapter extends RecyclerView.Adapter<ComenLugAdapter.ViewHo
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ComentarioLugService comentarioLugService = Api.getRetrofitInstance().create(ComentarioLugService.class);
-                Call<ComenLug> comCall = comentarioLugService.deleteComment(comenLug.get_id());
-                comCall.enqueue(new Callback<ComenLug>() {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                dialog.setView(R.layout.comentarioeliminado);
+                dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onResponse(Call<ComenLug> call, Response<ComenLug> response) {
-                            ComenLug comenLug1 = response.body();
-                            Intent intent = new Intent(context, Home.class);
-                            context.startActivity(intent);
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ComentarioLugService comentarioLugService = Api.getRetrofitInstance().create(ComentarioLugService.class);
+                        Call<String> comCall = comentarioLugService.deleteComment(comenLug.get_id());
+                        comCall.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                mComenLug.remove(holder.getAbsoluteAdapterPosition());
+                                notifyItemRemoved(holder.getAbsoluteAdapterPosition());
+                                notifyDataSetChanged();
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                System.out.println(t.toString());
+                            }
+                        });
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                        dialog.setView(R.layout.comentarioeliminado);
+                        dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        AlertDialog alertDialog = dialog.create();
+                        alertDialog.show();
                     }
 
+                });
+                dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onFailure(Call<ComenLug> call, Throwable t) {
-
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
                     }
                 });
+                AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
             }
         });
 

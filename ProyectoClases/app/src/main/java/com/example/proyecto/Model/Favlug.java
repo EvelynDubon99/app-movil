@@ -25,7 +25,6 @@ public class Favlug {
     }
 
 
-
     @SerializedName("lugar")
     public Lugar lugar;
 

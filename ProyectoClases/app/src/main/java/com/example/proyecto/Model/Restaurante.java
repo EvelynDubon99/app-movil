@@ -71,7 +71,7 @@ public class Restaurante {
     @SerializedName("fecha")
     public String fecha;
     @SerializedName("favs")
-    public ArrayList<Favorito> favres = new ArrayList<Favorito>();;
+    public ArrayList<Favorito> favres = new ArrayList<Favorito>();
 
 
     public String getWaze() {

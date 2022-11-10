@@ -93,7 +93,7 @@ public class DialogComment extends AppCompatDialogFragment{
         call.enqueue(new Callback<ComentarioModel>() {
             @Override
             public void onResponse(Call<ComentarioModel> call, Response<ComentarioModel> response) {
-                System.out.println("siu");
+
                 Call<List<Comentario>> comCall = comentarioService.getRes(id_res);
                 comCall.enqueue(new Callback<List<Comentario>>() {
                     @Override

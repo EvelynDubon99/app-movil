@@ -2,6 +2,8 @@ package com.example.proyecto.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Lugar {
     @SerializedName("_id")
     public String _id;
@@ -21,17 +23,29 @@ public class Lugar {
     public String coordenaday;
     @SerializedName("waze")
     public String waze;
+    @SerializedName("distancia")
+    public Float distancia;
+    @SerializedName("favs")
+    public ArrayList<Favoritos> favlugs = new ArrayList<Favoritos>();
 
-    public Boolean getFavoritos() {
-        return favoritos;
+    public Float getDistancia() {
+        return distancia;
     }
 
-    public void setFavoritos(Boolean favoritos) {
-        this.favoritos = favoritos;
+    public void setDistancia(Float distancia) {
+        this.distancia = distancia;
     }
 
-    @SerializedName("favoritos")
-    public Boolean favoritos;
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    @SerializedName("fecha")
+    public String fecha;
 
     public Lugar(){
 

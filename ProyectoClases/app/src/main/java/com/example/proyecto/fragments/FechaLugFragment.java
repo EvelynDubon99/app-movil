@@ -1,66 +1,107 @@
 package com.example.proyecto.fragments;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
+import com.example.proyecto.Model.FechaLug;
 import com.example.proyecto.R;
+import com.example.proyecto.api.Api;
+import com.example.proyecto.api.Fechalug;
+import com.example.proyecto.databinding.FragmentFechaLugBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FechaLugFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FechaLugFragment extends Fragment {
+import java.util.Calendar;
+import java.util.Date;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public FechaLugFragment() {
-        // Required empty public constructor
-    }
+public class FechaLugFragment extends AppCompatDialogFragment {
+    private FragmentFechaLugBinding binding;
+    private Button fechas;
+    private int dia, mes, year;
+    private TextView fecha_vista, id_lug, id_user;
+    private SharedPreferences sharedPreferences;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FechaLugFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FechaLugFragment newInstance(String param1, String param2) {
-        FechaLugFragment fragment = new FechaLugFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
+    @NonNull
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        binding = FragmentFechaLugBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fecha_lug, container, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        Bundle bundle = getActivity().getIntent().getExtras();
+        builder.setView(view);
+        sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+        String id_u = sharedPreferences.getString("_id", " ");
+        fechas = view.findViewById(R.id.fechas);
+        id_lug = view.findViewById(R.id.id_lug);
+        id_lug.setText(bundle.getString("id"));
+        id_user = view.findViewById(R.id.id_user);
+        id_user.setText(id_u);
+        fecha_vista = view.findViewById(R.id.fecha_visita);
+        fechas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                dia = c.get(Calendar.DAY_OF_MONTH);
+                mes = c.get(Calendar.MONTH);
+                year = c.get(Calendar.YEAR);
+
+
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year2, int monthOfYear, int dayOfMonth) {
+                        fecha_vista.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year2);
+                    }
+
+                }
+                        , year,mes, dia);
+                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+                datePickerDialog.show();
+            }
+        });
+        builder.setPositiveButton("Publicar Fecha", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Fechalug fechalug = Api.getRetrofitInstance().create(Fechalug.class);
+                Call<FechaLug> call = fechalug.postFecha(id_user.getText().toString(),
+                        id_lug.getText().toString(),fecha_vista.getText().toString());
+                call.enqueue(new Callback<FechaLug>() {
+                    @Override
+                    public void onResponse(Call<FechaLug> call, Response<FechaLug> response) {
+                        FechaLug fechalug1 = response.body();
+                    }
+
+                    @Override
+                    public void onFailure(Call<FechaLug> call, Throwable t) {
+
+                    }
+                });
+
+            }
+        });
+
+        return  builder.create();
     }
 }

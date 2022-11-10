@@ -22,10 +22,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.proyecto.Model.Restaurante;
-import com.example.proyecto.Model.Ubicacion;
 import com.example.proyecto.R;
 import com.example.proyecto.adapters.CercaResAdapter;
 import com.example.proyecto.api.Api;

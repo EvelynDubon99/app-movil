@@ -1,6 +1,8 @@
 package com.example.proyecto.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.proyecto.Cercademi;
 import com.example.proyecto.Favoritos;
 import com.example.proyecto.Model.Lugar;
 import com.example.proyecto.R;
@@ -48,6 +51,8 @@ public class LugaresFragment extends Fragment {
     private List<Lugar> mLugar;
     private LugarService lugarService;
     Menu menu;
+    RecyclerView rvLugar;
+    private SharedPreferences sharedPreferences;
 
 
     public LugaresFragment() {
@@ -86,24 +91,26 @@ public class LugaresFragment extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_lugares, container, false);
+        sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+        String id_u = sharedPreferences.getString("_id", " ");
         lugarService = Api.getRetrofitInstance().create(LugarService.class);
-        Call<List<Lugar>> lugarCall = lugarService.getLugar();
+        rvLugar = (RecyclerView) view.findViewById(R.id.lugar_list);
+        rvLugar.setAdapter(adapter);
+        rvLugar.setLayoutManager(new LinearLayoutManager(getContext()));
+        Call<List<Lugar>> lugarCall = lugarService.getLugar(id_u);
         lugarCall.enqueue(new Callback<List<Lugar>>() {
             @Override
             public void onResponse(Call<List<Lugar>> call, Response<List<Lugar>> response) {
-
-                RecyclerView rvLugar = (RecyclerView) view.findViewById(R.id.lugar_list);
-
-                rvLugar.setAdapter(adapter);
-                rvLugar.setLayoutManager(new LinearLayoutManager(getContext()));
-
                 adapter.reloadData(response.body());
+                adapter.notifyDataSetChanged();
+
+
 
             }
 
             @Override
             public void onFailure(Call<List<Lugar>> call, Throwable t) {
-                System.out.print("Error");
+                System.out.print(t.toString());
             }
         });
         return view;
@@ -134,10 +141,18 @@ public class LugaresFragment extends Fragment {
         }if (id == R.id.menos_populares){
 
             adapter.ordnarLista(5);
+        }if (id == R.id.ultima_fecha){
+            adapter.ordnarLista(7);
+        }if(id == R.id.fecha_reciente){
+            adapter.ordnarLista(6);
         }if(id == R.id.favorito){
             Intent intent = new Intent(getContext(), Favoritos.class);
             startActivity(intent);
+        }if(id == R.id.Cerca_mi){
+            Intent intent = new Intent(getContext(), Cercademi.class);
+            startActivity(intent);
         }
+        rvLugar.scrollToPosition(0);
 
 
         return super.onOptionsItemSelected(item);
