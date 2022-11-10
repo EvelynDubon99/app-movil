@@ -23,14 +23,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PerfilUserFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class PerfilUserFragment extends Fragment implements View.OnClickListener {
     private UserService userService;
-    private Button cerrar;
+    private Button cerrar, contras;
     private SharedPreferences sharedPreferences;
     private TextInputEditText nombre, correo, nacionalidad, telefono;
     private User user;
@@ -39,35 +35,11 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
 
 
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-
-    private String mParam1;
-    private String mParam2;
 
     public PerfilUserFragment() {
         // Required empty public constructor
     }
 
-    public static PerfilUserFragment newInstance(String param1, String param2) {
-        PerfilUserFragment fragment = new PerfilUserFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
 
 
     @Override
@@ -82,7 +54,16 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
         nombre_user = view.findViewById(R.id.nombre_user);
         apellido_user = view.findViewById(R.id.apellido_user);
         editPer = view.findViewById(R.id.editPer);
+        contras = view.findViewById(R.id.contras);
         cerrar.setOnClickListener(this);
+        contras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PerfilContra perfilContra = new PerfilContra();
+                perfilContra.show(getParentFragmentManager(), "updatecontra");
+            }
+        });
+
         editPer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,6 +118,7 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.commit();
