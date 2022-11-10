@@ -53,7 +53,7 @@ public class CercaResAdapter extends RecyclerView.Adapter<CercaResAdapter.ViewHo
     public CercaResAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(this.context);
-        View contactView = inflater.inflate(R.layout.item_restaurante, parent, false);
+        View contactView = inflater.inflate(R.layout.item_cercares, parent, false);
         ViewHolder viewHolder = new ViewHolder(contactView);
 
         return viewHolder;
@@ -63,8 +63,9 @@ public class CercaResAdapter extends RecyclerView.Adapter<CercaResAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Restaurante restaurante = mRestaurante.get(position);
         Float disnt = restaurante.distancia;
+        TextView distan = holder.mDistanccia;
+        distan.setText(Float.toString(restaurante.distancia) +" "+ "km");
         TextView restauranteName = holder.mNombre;
-        CheckBox favs = holder.mFavs;
         restauranteName.setText(restaurante.nombre);
         TextView restauranteDepartamento = holder.mDepartamento;
         restauranteDepartamento.setText(restaurante.departamento);
@@ -75,8 +76,7 @@ public class CercaResAdapter extends RecyclerView.Adapter<CercaResAdapter.ViewHo
         restauranteCalificacion.setRating(Float.parseFloat(restaurante.calificacion));
         TextView restauranteUrl = holder.mUrlImg;
         restauranteUrl.setText(restaurante.img);
-        TextView fecha = holder.mFecha;
-        fecha.setText((CharSequence) restaurante.fecha);
+
         ImageView restauranteImage = holder.mRestauranteImage;
         holder._id = restaurante.get_id();
         holder.coordenadax = restaurante.getCoordenadax();
@@ -85,37 +85,7 @@ public class CercaResAdapter extends RecyclerView.Adapter<CercaResAdapter.ViewHo
         holder.des = restaurante.getDescripcion();
         holder.cal = restaurante.getCalificacion();
         Glide.with(this.context).load(restaurante.img).into(restauranteImage);
-        favs.setOnClickListener(v -> {
-            if(favs.isChecked()){
 
-                postFavorito(restaurante.get_id());
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setView(R.layout.done);
-                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-
-            }else{
-                if(restaurante.favres.size() >0){
-                    deleteFavoritos(restaurante.favres.get(0).get_id());
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                    dialog.setView(R.layout.error);
-                    dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    AlertDialog alertDialog = dialog.create();
-                    alertDialog.show();
-                }
-            }
-        });
     }
     public void ditancia(int i){
         switch (i){
@@ -229,56 +199,21 @@ public class CercaResAdapter extends RecyclerView.Adapter<CercaResAdapter.ViewHo
         return mRestaurante.size();
     }
 
-    private void postFavorito(String id_res){
-        Favres favres = new Favres();
-        sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
-        String id_user = sharedPreferences.getString("_id"," ");
 
-        FavResService favResService = Api.getRetrofitInstance().create(FavResService.class);
-        Call<Favres> call = favResService.postfav(id_user, id_res);
-        call.enqueue(new Callback<Favres>() {
-            @Override
-            public void onResponse(Call<Favres> call, Response<Favres> response) {
-
-
-            }
-
-            @Override
-            public void onFailure(Call<Favres> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void deleteFavoritos(String id_fav){
-        FavResService favResService = Api.getRetrofitInstance().create(FavResService.class);
-        Call<String> call = favResService.deletefav(id_fav);
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
-            }
-        });
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private String _id, coordenadax, coordenaday, waze, des, cal;
         private ImageView mRestauranteImage;
-        private TextView mNombre, mFecha;
+        private TextView mNombre, mFecha, mDistanccia;
         private TextView mDepartamento;
         private RatingBar mCalificacion;
         private TextView mUrlImg;
-        private CheckBox mFavs;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mFecha = (TextView) itemView.findViewById(R.id.fecha);
+
             mCalificacion = (RatingBar) itemView.findViewById(R.id.calif);
-            mFavs = (CheckBox) itemView.findViewById(R.id.fav);
+            mDistanccia = (TextView) itemView.findViewById(R.id.distancia);
             mRestauranteImage = (ImageView) itemView.findViewById(R.id.image);
             mNombre = (TextView) itemView.findViewById(R.id.name);
             mDepartamento = (TextView) itemView.findViewById(R.id.departamento);
