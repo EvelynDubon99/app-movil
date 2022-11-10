@@ -48,6 +48,7 @@
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/comenlug.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/comentario.xml" value="0.18" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/comentarioeliminado.xml" value="0.1" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/contra.xml" value="0.25" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/done.xml" value="0.1468721668177697" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/error.xml" value="0.1468721668177697" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_blank.xml" value="0.10029251984956122" />
@@ -55,6 +56,7 @@
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_cercademi_res.xml" value="0.264" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_com_lugar.xml" value="0.25" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_comentario.xml" value="0.1" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_contra.xml" value="0.25" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_delete_comentario.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_detalle.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/fragment_detalle_lug.xml" value="0.1" />
@@ -76,6 +78,7 @@
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/item_perfil.xml" value="0.10025062656641603" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/item_restaurante.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/loading.xml" value="0.6" />
+        <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/perfilcontra.xml" value="0.25" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/perfilupdate.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/layout/restaurante.xml" value="0.1" />
         <entry key="..\:/Users/evely/OneDrive/Desktop/app-movil/ProyectoClases/app/src/main/res/menu/cercademi_menu.xml" value="0.24895833333333334" />

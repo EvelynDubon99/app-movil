@@ -159,14 +159,32 @@
                 </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <Button
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/cerrar"
-            android:text="Log out"
+            >
 
-            />
+
+                <Button
+                    android:id="@+id/cerrar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Log out" />
+
+                <Button
+                    android:id="@+id/contras"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="25dp"
+                    android:layout_toRightOf="@+id/cerrar"
+                    android:paddingLeft="10dp"
+
+                    android:text="Cambiar contraseña" />
+        </RelativeLayout>
+
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/editPer"
