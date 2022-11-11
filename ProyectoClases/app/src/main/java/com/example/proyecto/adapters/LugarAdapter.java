@@ -45,6 +45,7 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
 
     private Context context;
     private SharedPreferences sharedPreferences;
+    private LugarService lugarService;
     FavLugService favLugService;
     Menu menu;
 
@@ -118,17 +119,52 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
                 alertDialog.show();
             }else{
                 if(lugar.favlugs.size() > 0){
-                    deleteFavorito(lugar.favlugs.get(0).get_id());
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                    dialog.setView(R.layout.error);
-                    dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    AlertDialog.Builder  builder = new AlertDialog.Builder(context);
+                    builder.setView(R.layout.deletefavoritos);
+                    builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
+                            deleteFavorito(lugar.favlugs.get(0).get_id());
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                            dialog.setView(R.layout.error);
+                            dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = dialog.create();
+                            alertDialog.show();
                         }
                     });
-                    AlertDialog alertDialog = dialog.create();
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                            String id_u = sharedPreferences.getString("_id", " ");
+                            lugarService = Api.getRetrofitInstance().create(LugarService.class);
+                            Call<List<Lugar>> lugarCall = lugarService.getLugar(id_u);
+                            lugarCall.enqueue(new Callback<List<Lugar>>() {
+                                @Override
+                                public void onResponse(Call<List<Lugar>> call, Response<List<Lugar>> response) {
+                                   reloadData(response.body());
+                                  notifyDataSetChanged();
+
+
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<List<Lugar>> call, Throwable t) {
+                                    System.out.print(t.toString());
+                                }
+                            });
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
                     alertDialog.show();
+
+
                 }
             }
         });

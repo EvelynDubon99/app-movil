@@ -53,6 +53,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
     FavResService favResService;
     Menu menu;
     SharedPreferences sharedPreferences;
+    private RestauranteService restauranteService;
 
 
 
@@ -130,17 +131,50 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
 
             }else{
                 if(restaurante.favres.size() >0){
-                    deleteFavoritos(restaurante.favres.get(0).get_id());
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                    dialog.setView(R.layout.error);
-                    dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+
+                    AlertDialog.Builder  builder = new AlertDialog.Builder(context);
+                    builder.setView(R.layout.deletefavoritos);
+                    builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
+                            deleteFavoritos(restaurante.favres.get(0).get_id());
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                            dialog.setView(R.layout.error);
+                            dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = dialog.create();
+                            alertDialog.show();
                         }
                     });
-                    AlertDialog alertDialog = dialog.create();
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                            String id_u = sharedPreferences.getString("_id", " ");
+                            restauranteService = Api.getRetrofitInstance().create(RestauranteService.class);
+                            Call<List<Restaurante>> restauranteCall = restauranteService.getRestaurante(id_u);
+                            restauranteCall.enqueue(new Callback<List<Restaurante>>() {
+                                @Override
+                                public void onResponse(Call<List<Restaurante>> call, Response<List<Restaurante>> response) {
+                                   reloadData(response.body());
+                                    notifyDataSetChanged();
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<List<Restaurante>> call, Throwable t) {
+                                    System.out.print(t.toString());
+                                }
+                            });
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
                     alertDialog.show();
+
                 }
             }
         });

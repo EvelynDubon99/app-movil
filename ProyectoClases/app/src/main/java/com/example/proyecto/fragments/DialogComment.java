@@ -77,7 +77,16 @@ public class DialogComment extends AppCompatDialogFragment{
                         String.valueOf(calif.getRating())
 
                 );
-
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                dialog.setView(R.layout.comentarioagregado);
+                dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
 
             }
         });
