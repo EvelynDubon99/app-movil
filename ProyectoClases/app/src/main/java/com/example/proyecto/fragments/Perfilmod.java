@@ -116,8 +116,23 @@ public class Perfilmod extends AppCompatDialogFragment {
                         System.out.println(t);
                     }
                 });
+               AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                dialog.setView(R.layout.datosactualizado);
+                dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+               AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
 
-
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
             }
         });
         return builder.create();

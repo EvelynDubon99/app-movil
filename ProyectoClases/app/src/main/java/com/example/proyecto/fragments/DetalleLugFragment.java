@@ -34,11 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetalleLugFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class DetalleLugFragment extends Fragment implements View.OnClickListener {
     private FragmentDetalleBinding binding;
     private FloatingActionsMenu menufloating;
@@ -47,45 +43,8 @@ public class DetalleLugFragment extends Fragment implements View.OnClickListener
     private Lugar lugar;
     private SharedPreferences sharedPreferences;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public DetalleLugFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetalleLugFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DetalleLugFragment newInstance(String param1, String param2) {
-        DetalleLugFragment fragment = new DetalleLugFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,8 +69,6 @@ public class DetalleLugFragment extends Fragment implements View.OnClickListener
         fav.setOnClickListener(this);
 
 
-
-
         TextView itNombre = binding.itemDetailNombre;
         TextView itDept = binding.itemDetailDept;
         TextView itDes = binding.descripcion;
@@ -119,9 +76,6 @@ public class DetalleLugFragment extends Fragment implements View.OnClickListener
 
         itDes.setText(bundle.getString("des"));
         itcal.setText(bundle.getString("cal") +" " + "/ 5");
-
-
-
         itNombre.setText(bundle.getString("eNombre"));
         itDept.setText(bundle.getString("eDepartamento"));
 
@@ -134,7 +88,26 @@ public class DetalleLugFragment extends Fragment implements View.OnClickListener
         return view;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        Bundle bundle = getActivity().getIntent().getExtras();
+        if(bundle.get("favs").toString().isEmpty()){
+            fav.setChecked(false);
+        }else{
+            fav.setChecked(true);
+        }
 
+        TextView itNombre = binding.itemDetailNombre;
+        TextView itDept = binding.itemDetailDept;
+        TextView itDes = binding.descripcion;
+        TextView itcal = binding.cal;
+
+        itDes.setText(bundle.getString("des"));
+        itcal.setText(bundle.getString("cal") +" " + "/ 5");
+        itNombre.setText(bundle.getString("eNombre"));
+        itDept.setText(bundle.getString("eDepartamento"));
+    }
     @Override
     public void onClick(View view) {
         Bundle bundle = getActivity().getIntent().getExtras();
@@ -170,13 +143,33 @@ public class DetalleLugFragment extends Fragment implements View.OnClickListener
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                 }else{
-                    deleteFavoritos(bundle.getString("favs"));
                     AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-                    dialog.setView(R.layout.error);
-                    dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    dialog.setView(R.layout.deletefavoritos);
+                    dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
+                            deleteFavoritos(bundle.getString("favs"));
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                            dialog.setView(R.layout.error);
+                            dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = dialog.create();
+                            alertDialog.show();
+                        }
+                    });
+                    dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Bundle bundle = getActivity().getIntent().getExtras();
+                            if(bundle.get("favs").toString().isEmpty()){
+                                fav.setChecked(false);
+                            }else{
+                                fav.setChecked(true);
+                            }
                         }
                     });
                     AlertDialog alertDialog = dialog.create();
@@ -186,10 +179,7 @@ public class DetalleLugFragment extends Fragment implements View.OnClickListener
         }
 
     }
-    @Override
-    public void onResume(){
-        super.onResume();
-    }
+
 
     private void deleteFavoritos(String id_fav) {
         FavLugService favLugService = Api.getRetrofitInstance().create(FavLugService.class);
