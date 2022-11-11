@@ -88,11 +88,57 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
         favs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FavResService favResService = Api.getRetrofitInstance().create(FavResService.class);
-                Call<String> call = favResService.deletefav(favres.get_id());
-                call.enqueue(new Callback<String>() {
+                AlertDialog.Builder  builder = new AlertDialog.Builder(context);
+                builder.setView(R.layout.deletefavoritos);
+                builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        FavResService favResService = Api.getRetrofitInstance().create(FavResService.class);
+                        Call<String> call = favResService.deletefav(favres.get_id());
+                        call.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
+                                String id_user = sharedPreferences.getString("_id"," ");
+                                FavResService fs = Api.getRetrofitInstance().create(FavResService.class);
+                                Call<List<Favres>> comCall = favResService.getuser(id_user);
+                                comCall.enqueue(new Callback<List<Favres>>() {
+                                    @Override
+                                    public void onResponse(Call<List<Favres>> call, Response<List<Favres>> response) {
+                                        reloadData(response.body());
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<List<Favres>> call, Throwable t) {
+
+                                        System.out.print(t);
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                System.out.println(t.toString());
+
+                            }
+                        });
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                        dialog.setView(R.layout.error);
+                        dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        AlertDialog alertDialog = dialog.create();
+                        alertDialog.show();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        FavResService favResService = Api.getRetrofitInstance().create(FavResService.class);
                         sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
                         String id_user = sharedPreferences.getString("_id"," ");
                         FavResService fs = Api.getRetrofitInstance().create(FavResService.class);
@@ -110,24 +156,12 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
                                 System.out.print(t);
                             }
                         });
-                    }
-
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        System.out.println(t.toString());
 
                     }
                 });
-                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                dialog.setView(R.layout.error);
-                dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                AlertDialog alertDialog = dialog.create();
+                AlertDialog alertDialog = builder.create();
                 alertDialog.show();
+
             }
         });
     }

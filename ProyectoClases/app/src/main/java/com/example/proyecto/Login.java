@@ -1,8 +1,10 @@
 package com.example.proyecto;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -113,13 +115,31 @@ public class Login extends AppCompatActivity {
                         startActivity(intent);
 
                     } else{
-
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
+                        dialog.setView(R.layout.loginerror);
+                        dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        AlertDialog alertDialog = dialog.create();
+                        alertDialog.show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
+                    dialog.setView(R.layout.loginerror);
+                    dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = dialog.create();
+                    alertDialog.show();
                 }
             });
         } catch(Exception e){
