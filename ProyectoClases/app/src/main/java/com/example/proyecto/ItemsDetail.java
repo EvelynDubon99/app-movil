@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class ItemsDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final LoadingDialog loadingDialog = new LoadingDialog(ItemsDetail.this);
         setContentView(R.layout.activity_items_detail);
         viewPager2 = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tablayout);
@@ -53,7 +55,14 @@ public class ItemsDetail extends AppCompatActivity {
                     }
                 }); tabLayoutMediator.attach();
 
-
+        loadingDialog.startLoading();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismissDialog();
+            }
+        }, 1600);
 
 
     }

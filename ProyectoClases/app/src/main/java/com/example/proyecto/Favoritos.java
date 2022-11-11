@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.example.proyecto.adapters.FragAdap;
 import com.example.proyecto.adapters.FragAdapt;
@@ -19,6 +20,7 @@ public class Favoritos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoritos);
+        final LoadingDialog loadingDialog = new LoadingDialog(Favoritos.this);
         viewPager2 = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tablayout);
         viewPager2.setAdapter(new FragAdapt(this));
@@ -30,6 +32,7 @@ public class Favoritos extends AppCompatActivity {
                             case 0:{
                                 tab.setText("Restaurante");
                                 tab.setIcon(getResources().getDrawable(R.drawable.ic_restaurant));
+
                                 break;
                             }
                             case 1:{
@@ -40,6 +43,14 @@ public class Favoritos extends AppCompatActivity {
                         }
                     }
                 }); tabLayoutMediator.attach();
+        loadingDialog.startLoading();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismissDialog();
+            }
+        }, 1600);
 
 
 

@@ -36,14 +36,6 @@ public class ComentarioFragment extends Fragment implements View.OnClickListener
     private FragmentComentarioBinding binding;
     private ComentarioAdapter adapter = new ComentarioAdapter(new ArrayList<>());
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private List<Comentario> mComentario;
     private ComentarioService comentarioService;
     private Comentario comentario;
@@ -52,23 +44,6 @@ public class ComentarioFragment extends Fragment implements View.OnClickListener
     private SharedPreferences sharedPreferences;
 
 
-
-    public ComentarioFragment() {
-        // Required empty public constructor
-    }
-
-
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,12 +55,6 @@ public class ComentarioFragment extends Fragment implements View.OnClickListener
         delete = view.findViewById(R.id.delete);
         comment = view.findViewById(R.id.comment);
         comment.setOnClickListener(this);
-
-
-
-
-
-
         comentarioService = Api.getRetrofitInstance().create(ComentarioService.class);
         RecyclerView rvComent = (RecyclerView) view.findViewById(R.id.comentario_list);
         rvComent.setAdapter(adapter);
@@ -107,7 +76,25 @@ public class ComentarioFragment extends Fragment implements View.OnClickListener
         return view;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        Bundle bundle = getActivity().getIntent().getExtras();
+        Call<List<Comentario>> comCall = comentarioService.getRes(bundle.getString("id"));
+        comCall.enqueue(new Callback<List<Comentario>>() {
+            @Override
+            public void onResponse(Call<List<Comentario>> call, Response<List<Comentario>> response) {
 
+                adapter.reloadData(response.body());
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Comentario>> call, Throwable t) {
+                System.out.print(t);
+            }
+        });
+    }
 
     @Override
     public void onClick(View view) {

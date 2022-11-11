@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class Home extends AppCompatActivity {
         tabLayout = findViewById(R.id.tablayout);
 
         viewPager2.setAdapter(new FragmentAdapter(this));
+        final LoadingDialog loadingDialog = new LoadingDialog(Home.this);
 
 
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager2,
@@ -65,11 +67,20 @@ public class Home extends AppCompatActivity {
                             case 2:{
                                 tab.setText("Perfil");
                                 tab.setIcon(getResources().getDrawable(R.drawable.ic_person));
+
                                 break;
                             }
                         }
                     }
                 }); tabLayoutMediator.attach();
+        loadingDialog.startLoading();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismissDialog();
+            }
+        }, 1600);
 
 
 

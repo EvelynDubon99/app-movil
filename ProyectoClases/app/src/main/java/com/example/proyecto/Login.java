@@ -56,7 +56,17 @@ public class Login extends AppCompatActivity {
 
         newregister.setOnClickListener(new View.OnClickListener() {@Override
             public void onClick(View view) {
+                final LoadingDialog loadingDialog = new LoadingDialog(Login.this);
                 startActivity(new Intent(Login.this, Register.class));
+            loadingDialog.startLoading();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDialog.dismissDialog();
+                }
+            }, 3000);
+
             }
         });
 

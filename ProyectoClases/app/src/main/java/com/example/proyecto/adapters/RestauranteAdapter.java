@@ -25,6 +25,8 @@ import com.bumptech.glide.Glide;
 import com.example.proyecto.Favoritos;
 import com.example.proyecto.Home;
 import com.example.proyecto.ItemsDetail;
+import com.example.proyecto.LoadingDialog;
+import com.example.proyecto.Login;
 import com.example.proyecto.Model.Comentario;
 import com.example.proyecto.Model.Favlug;
 import com.example.proyecto.Model.Favres;
@@ -53,6 +55,8 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
     SharedPreferences sharedPreferences;
 
 
+
+
     public RestauranteAdapter(List<Restaurante> mRestaurante){ this.mRestaurante = mRestaurante;}
 
     public void reloadData(List<Restaurante> restaurante){
@@ -67,6 +71,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View contactView = inflater.inflate(R.layout.item_restaurante, parent, false);
         ViewHolder viewHolder = new ViewHolder(contactView);
+
 
         return viewHolder;
     }
@@ -226,7 +231,6 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
 
         @Override
         public void onClick(View view){
-
             Intent intent = new Intent(view.getContext(), ItemsDetail.class);
             intent.putExtra("id",_id);
             intent.putExtra("cal", cal );
@@ -283,6 +287,12 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
                 Collections.sort(mRestaurante, new Comparator<Restaurante>() {
                     @Override
                     public int compare(Restaurante r1, Restaurante r2) {
+                        if(r1.getCalificacion() == null){
+                            r1.setCalificacion("0");
+                        }
+                        if(r2.getCalificacion() == null){
+                            r2.setCalificacion("0");
+                        }
                         return r2.getCalificacion().compareTo(r1.getCalificacion()) ;
                     }
                 });
@@ -291,6 +301,12 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
                 Collections.sort(mRestaurante, new Comparator<Restaurante>() {
                     @Override
                     public int compare(Restaurante r1, Restaurante r2) {
+                        if(r1.getCalificacion() == null){
+                            r1.setCalificacion("0");
+                        }
+                        if(r2.getCalificacion() == null){
+                            r2.setCalificacion("0");
+                        }
                         return r1.getCalificacion().compareTo(r2.getCalificacion());
                     }
                 });
@@ -299,10 +315,10 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
                     @Override
                     public int compare(Restaurante r1, Restaurante r2) {
                         if(r1.getFecha() == null){
-                            r1.setFecha("00/00/00");
+                            r1.setFecha(" ");
                         }
                         if(r2.getFecha() == null){
-                            r2.setFecha("00/00/00");
+                            r2.setFecha(" ");
                         }
                         return r1.getFecha().compareTo(r2.getFecha()) ;
                     }
@@ -313,10 +329,10 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
                     @Override
                     public int compare(Restaurante r1, Restaurante r2) {
                         if(r1.getFecha() == null){
-                            r1.setFecha("00/00/00");
+                            r1.setFecha(" ");
                         }
                         if(r2.getFecha() == null){
-                            r2.setFecha("00/00/00");
+                            r2.setFecha(" ");
                         }
                         return r2.getFecha().compareTo(r1.getFecha());
                     }

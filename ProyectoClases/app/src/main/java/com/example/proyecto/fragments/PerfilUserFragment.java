@@ -34,14 +34,6 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
     private FloatingActionButton editPer;
 
 
-
-
-    public PerfilUserFragment() {
-        // Required empty public constructor
-    }
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,7 +107,36 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
 
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+        String id_u = sharedPreferences.getString("_id", " ");
+        Call<User> call = userService.getUsuario(id_u);
+        try{
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    System.out.println(response.body());
+                    nombre_user.setText(response.body().getNombre());
+                    apellido_user.setText(response.body().getApellido());
+                    nombre.setText(response.body().getNombre() + " "+response.body().getApellido());
+                    correo.setText(response.body().getCorreo());
+                    nacionalidad.setText(response.body().getNacionalidad());
+                    telefono.setText(response.body().getNumero());
 
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    System.out.println(t.toString());
+
+                }
+            });}catch (Exception e){
+            System.out.println(e.toString());
+        }
+
+    }
     @Override
     public void onClick(View view) {
 
@@ -125,4 +146,6 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
 
         getActivity().finish();
     }
+
+
 }
