@@ -57,7 +57,6 @@ public class Perfilmod extends AppCompatDialogFragment {
 
         nombre =  view.findViewById(R.id.nombre);
         apellido = view.findViewById(R.id.apellido);
-        correo = view.findViewById(R.id.correo);
         numero = view.findViewById(R.id.numero);
         nacionalidad = view.findViewById(R.id.nacionalidad);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -74,7 +73,6 @@ public class Perfilmod extends AppCompatDialogFragment {
                 public void onResponse(Call<User> call, Response<User> response) {
                     nombre.setText(response.body().getNombre());
                     apellido.setText(response.body().getApellido());
-                    correo.setText(response.body().getCorreo());
                     numero.setText(response.body().getNumero());
 
                 }
@@ -94,7 +92,6 @@ public class Perfilmod extends AppCompatDialogFragment {
                 User user = new User();
                 user.setNombre(nombre.getText().toString());
                 user.setApellido(apellido.getText().toString());
-                user.setCorreo(correo.getText().toString());
                 user.setNumero(numero.getText().toString());
 
 
@@ -107,7 +104,6 @@ public class Perfilmod extends AppCompatDialogFragment {
                         nombre_user.setText(user.nombre);
                         apellido_user.setText(user.apellido);
                         nombre2.setText(user.nombre + " "+user.apellido);
-                        correo2.setText(user.correo);
                         telefono.setText(user.numero);
                     }
 

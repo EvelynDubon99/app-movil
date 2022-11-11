@@ -80,7 +80,6 @@ public class PerfilUserFragment extends Fragment implements View.OnClickListener
                 nombre_user.setText(response.body().getNombre());
                 apellido_user.setText(response.body().getApellido());
                 nombre.setText(response.body().getNombre() + " "+response.body().getApellido());
-                correo.setText(response.body().getCorreo());
                 nacionalidad.setText(response.body().getNacionalidad());
                 telefono.setText(response.body().getNumero());
 

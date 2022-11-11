@@ -95,17 +95,6 @@ public class FechaLugFragment extends AppCompatDialogFragment {
 
                     @Override
                     public void onFailure(Call<FechaLug> call, Throwable t) {
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-                        dialog.setView(R.layout.fechaexistente);
-                        dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        });
-                        AlertDialog alertDialog = dialog.create();
-                        alertDialog.show();
-
                     }
                 });
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
