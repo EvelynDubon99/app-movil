@@ -10,8 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:paddingTop="150dp">
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="400dp"
+            android:layout_height="238dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/arcofondo"
+            android:src="@drawable/arco" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,6 +61,7 @@
             android:text="@string/login"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:onClick="login"
             android:textColor="@color/black"
             android:layout_marginTop="20dp" />
 

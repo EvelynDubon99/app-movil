@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FechaVisita">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="10dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/amarrillo" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="-50dp">
+
+                <TextView
+                    android:id="@+id/comentarios"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Fecha de vistia "
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/id_user"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:id="@+id/id_res"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agregar Fecha:"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+
+            <EditText
+                android:id="@+id/escomment"
+                android:layout_width="323dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/forget2"
+                android:hint="Agregar Fecha"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:text="Agregar"
+                android:textAllCaps="false"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

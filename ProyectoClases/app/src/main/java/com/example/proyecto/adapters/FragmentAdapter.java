@@ -3,11 +3,14 @@ package com.example.proyecto.adapters;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.proyecto.FavoritosFragment;
-import com.example.proyecto.LugaresFragment;
-import com.example.proyecto.RestauranteFragment;
+import com.example.proyecto.fragments.PerfilUserFragment;
+import com.example.proyecto.fragments.FavoritosFragment;
+import com.example.proyecto.fragments.LugaresFragment;
+import com.example.proyecto.fragments.RestauranteFragment;
 
 public class FragmentAdapter extends FragmentStateAdapter {
     public FragmentAdapter(@NonNull FragmentActivity fragmentActivity) {
@@ -25,7 +28,7 @@ public class FragmentAdapter extends FragmentStateAdapter {
             case 1:
                 return new LugaresFragment();
             default:
-                return new FavoritosFragment();
+                return new PerfilUserFragment();
         }
     }
 

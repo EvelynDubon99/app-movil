@@ -8,20 +8,16 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface LugarService {
-    @GET("api/lugar")
-    Call<List<Lugar>> getLugar();
-    @GET("api/lugar/mas")
-    Call<List<Lugar>> getMasPopular();
-    @GET("api/lugar/menos")
-    Call<List<Lugar>> getMenosPopular();
-    @GET("api/lugar/acDep")
-    Call<List<Lugar>> getACdep();
-    @GET("api/lugar/opDep")
-    Call<List<Lugar>> getOpdep();
-    @GET("api/lugar/acNom")
-    Call<List<Lugar>> getACnom();
-    @GET("api/lugar/opNom")
-    Call<List<Lugar>> getOpnom();
+    @GET("api/lugar/{userId}")
+    Call<List<Lugar>> getLugar(@Path("userId")String userId);
+
+    @GET("api/lugar/{userId}/{milatitud}/{milongitud}")
+    Call<List<Lugar>> getLugar2(@Path("userId")String userId,
+                                @Path("milatitud") Number milatitud,
+                                @Path("milongitud") Number milongitud);
+
+
 }

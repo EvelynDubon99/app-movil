@@ -4,6 +4,8 @@ public class User {
 
     public Boolean ok;
     public String msg;
+
+    public String _id;
     public String nombre;
     public String apellido;
     public String correo;
@@ -12,6 +14,10 @@ public class User {
     public String contra;
     public String confcontra;
 
+    public String get_id() {return _id;}
+
+
+    public void set_id(String _id) {this._id = _id;}
     public String getNombre() {
         return nombre;
     }
@@ -67,4 +73,10 @@ public class User {
     public void setConfcontra(String confcontra) {
         this.confcontra = confcontra;
     }
+
+    public String nombreCompleto(String nombre,String apellido){
+        return this.nombre+this.apellido;
+    }
+
+
 }

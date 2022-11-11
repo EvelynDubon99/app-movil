@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,21 +22,16 @@ import retrofit2.Response;
 
 public class Register extends AppCompatActivity {
 
-    private ImageView regresar;
+
     private TextView newlogin;
-    private EditText nombre;
-    private EditText apellido;
-    private EditText correo;
+    private EditText nombre, apellido, correo, numero, contra, confcontra;
     private CountryCodePicker nacionalidad;
-    private EditText numero;
-    private EditText contra;
-    private EditText confcontra;
     private Button register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        regresar=findViewById(R.id.regresar);
+
         newlogin=findViewById(R.id.newlogin);
         nombre = findViewById(R.id.nombre);
         apellido = findViewById(R.id.apellido);
@@ -47,44 +42,54 @@ public class Register extends AppCompatActivity {
         confcontra = findViewById(R.id.confcontra);
         register = findViewById(R.id.register);
 
-        regresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Register.this, MainActivity.class));
-            }
-        });
+
         newlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final LoadingDialog loadingDialog = new LoadingDialog(Register.this);
                 startActivity(new Intent(Register.this, Login.class));
+                loadingDialog.startLoading();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingDialog.dismissDialog();
+                    }
+                }, 3000);
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+
+    }
+
+    public void select(View view){
+        final LoadingDialog loadingDialog = new LoadingDialog(Register.this);
+        if (nombre.getText().toString().isEmpty() && apellido.getText().toString().isEmpty()
+                && correo.getText().toString().isEmpty() && nacionalidad.getSelectedCountryName().toString().isEmpty()
+                && numero.getText().toString().isEmpty() && contra.getText().toString().isEmpty()
+                && confcontra.getText().toString().isEmpty()){
+            // objeto de vista que despliega elemementos emergentes en la IU
+            Toast.makeText(Register.this, "Ingresar todos los campos",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        registrar(
+                nombre.getText().toString(),
+                apellido.getText().toString(),
+                correo.getText().toString(),
+                nacionalidad.getSelectedCountryName(),
+                numero.getText().toString(),
+                contra.getText().toString(),
+                confcontra.getText().toString()
+        );
+        loadingDialog.startLoading();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-                if (nombre.getText().toString().isEmpty() && apellido.getText().toString().isEmpty()
-                        && correo.getText().toString().isEmpty() && nacionalidad.getSelectedCountryName().toString().isEmpty()
-                        && numero.getText().toString().isEmpty() && contra.getText().toString().isEmpty()
-                        && confcontra.getText().toString().isEmpty()){
-                    // objeto de vista que despliega elemementos emergentes en la IU
-                    Toast.makeText(Register.this, "Ingresar todos los campos",
-                            Toast.LENGTH_SHORT).show();
-                        return;
-                }
-                registrar(
-                        nombre.getText().toString(),
-                        apellido.getText().toString(),
-                        correo.getText().toString(),
-                        nacionalidad.getSelectedCountryName(),
-                        numero.getText().toString(),
-                        contra.getText().toString(),
-                        confcontra.getText().toString()
-                );
+            public void run() {
+                loadingDialog.dismissDialog();
             }
-
-
-        });
+        }, 3000);
     }
 
     private void registrar(String nombre, String apellido, String correo, String nacionalidad,
@@ -98,7 +103,7 @@ public class Register extends AppCompatActivity {
                 public void onResponse(Call<User> call, Response<User> response) {
                     User user = response.body();
                     if (user.ok ){
-                        Intent intent = new Intent(getApplicationContext(), Home.class);
+                        Intent intent = new Intent(getApplicationContext(), Login.class);
                         startActivity(intent);
                     } else{
                         Toast.makeText(Register.this, user.msg, Toast.LENGTH_SHORT).show();
