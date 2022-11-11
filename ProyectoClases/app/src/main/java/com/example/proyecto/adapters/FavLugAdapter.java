@@ -194,6 +194,12 @@ public void ordnarLista(int i){
                 Collections.sort(mFavlug, new Comparator<Favlug>() {
                     @Override
                     public int compare(Favlug f1, Favlug f2) {
+                        if(f1.lugar.getCalificacion() == null){
+                            f1.lugar.setCalificacion("0");
+                        }
+                        if(f2.lugar.getCalificacion() == null){
+                            f2.lugar.setCalificacion("0");
+                        }
                         return f2.lugar.getCalificacion().compareTo(f1.lugar.getCalificacion());
                     }
                 });
@@ -202,6 +208,12 @@ public void ordnarLista(int i){
                 Collections.sort(mFavlug, new Comparator<Favlug>() {
                     @Override
                     public int compare(Favlug f1, Favlug f2) {
+                        if(f1.lugar.getCalificacion() == null){
+                            f1.lugar.setCalificacion("0");
+                        }
+                        if(f2.lugar.getCalificacion() == null){
+                            f2.lugar.setCalificacion("0");
+                        }
                         return f1.lugar.getCalificacion().compareTo(f2.lugar.getCalificacion());
                     }
                 });
@@ -211,10 +223,10 @@ public void ordnarLista(int i){
                     @Override
                     public int compare(Favlug f1, Favlug f2) {
                         if(f1.getFecha() == null){
-                            f1.setFecha("00/00/00");
+                            f1.setFecha(" ");
                         }
                         if(f2.getFecha() == null){
-                            f2.setFecha("00/00/00");
+                            f2.setFecha(" ");
                         }
 
                         return f1.getFecha().compareTo(
@@ -227,10 +239,10 @@ public void ordnarLista(int i){
                     @Override
                     public int compare(Favlug f1, Favlug f2) {
                         if(f2.getFecha() == null){
-                            f2.setFecha("00/00/00");
+                            f2.setFecha(" ");
                         }
                         if(f1.getFecha() == null){
-                            f1.setFecha("00/00/00");
+                            f1.setFecha(" ");
                         }
                         return f2.getFecha().compareTo(
                                 f1.getFecha());

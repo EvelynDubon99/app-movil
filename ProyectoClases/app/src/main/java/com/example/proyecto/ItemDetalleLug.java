@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.example.proyecto.adapters.FragAdap;
 import com.example.proyecto.adapters.FragLugAdpt;
@@ -18,7 +19,7 @@ public class ItemDetalleLug extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detalle_lug);
-
+        final LoadingDialog loadingDialog = new LoadingDialog(ItemDetalleLug.this);
         viewPager2 = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tablayout);
         viewPager2.setAdapter(new FragLugAdpt(this));
@@ -44,7 +45,14 @@ public class ItemDetalleLug extends AppCompatActivity {
                     }
                 }); tabLayoutMediator.attach();
 
-
+        loadingDialog.startLoading();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismissDialog();
+            }
+        }, 1600);
 
 
     }

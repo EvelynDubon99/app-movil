@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.proyecto.Cercademi;
 import com.example.proyecto.Favoritos;
 import com.example.proyecto.Home;
+import com.example.proyecto.LoadingDialog;
 import com.example.proyecto.Login;
 import com.example.proyecto.Model.Restaurante;
 import com.example.proyecto.R;
@@ -149,9 +150,9 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
 
             adapter.ordnarLista(5);
         } if (id == R.id.ultima_fecha){
-            adapter.ordnarLista(7);
-        }if(id == R.id.fecha_reciente){
             adapter.ordnarLista(6);
+        }if(id == R.id.fecha_reciente){
+            adapter.ordnarLista(7);
         }if(id == R.id.favorito){
             Intent intent = new Intent(getContext(), Favoritos.class);
             startActivity(intent);

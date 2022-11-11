@@ -2,11 +2,13 @@ package com.example.proyecto;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 
 public class LoadingDialog {
     Activity activity;
     AlertDialog dialog;
+
     LoadingDialog(Activity myActivity){
         activity = myActivity;
 

@@ -29,58 +29,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavLugarFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FavLugarFragment extends Fragment {
     private FavLugAdapter adapter = new FavLugAdapter(new ArrayList<>());
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private List<Favlug> mFavlug;
     private FavLugService favLugService;
     private SharedPreferences sharedPreferences;
     RecyclerView rvFavres;
     Menu menu;
-
-    public FavLugarFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavLugarFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavLugarFragment newInstance(String param1, String param2) {
-        FavLugarFragment fragment = new FavLugarFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,6 +67,28 @@ public class FavLugarFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+        String id_u = sharedPreferences.getString("_id", " ");
+        Call<List<Favlug>> comCall = favLugService.getuser(id_u);
+        comCall.enqueue(new Callback<List<Favlug>>() {
+            @Override
+            public void onResponse(Call<List<Favlug>> call, Response<List<Favlug>> response) {
+                adapter.reloadData(response.body());
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Favlug>> call, Throwable t) {
+                System.out.print(t.toString());
+
+            }
+        });
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.sort2_menu, menu);
@@ -138,9 +117,9 @@ public class FavLugarFragment extends Fragment {
 
             adapter.ordnarLista(5);
         } if (id == R.id.ultima_fecha){
-            adapter.ordnarLista(7);
-        }if(id == R.id.fecha_reciente){
             adapter.ordnarLista(6);
+        }if(id == R.id.fecha_reciente){
+            adapter.ordnarLista(7);
         }
 
 

@@ -87,6 +87,8 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
         lugarCalificacion.setRating(Float.parseFloat(lugar.calificacion));
         TextView lugarUrl = holder.mUrlImg;
         lugarUrl.setText(lugar.img);
+        TextView fecha = holder.mFecha;
+        fecha.setText((CharSequence) lugar.getFecha());
         ImageView lugarImage = holder.mLugarImage;
         holder._id = lugar.get_id();
         holder.coordenadax =lugar.getCoordenadax();
@@ -191,13 +193,14 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private  String _id, coordenadax, coordenaday, waze, descripcion, cal, idFav;
         private ImageView mLugarImage;
-        private TextView mNombre, mDepartamento, mUrlImg;
+        private TextView mNombre, mDepartamento, mUrlImg, mFecha;
         private CheckBox mFavs;
         private RatingBar mCalificacion;
 
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
+            mFecha = (TextView) itemView.findViewById(R.id.fecha);
             mFavs = (CheckBox) itemView.findViewById(R.id.fav);
             mLugarImage = (ImageView) itemView.findViewById(R.id.image);
             mNombre = (TextView) itemView.findViewById(R.id.name);
@@ -263,6 +266,12 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
                 Collections.sort(mLugar, new Comparator<Lugar>() {
                     @Override
                     public int compare(Lugar r1, Lugar r2) {
+                        if(r1.getCalificacion() == null){
+                            r1.setCalificacion("0");
+                        }
+                        if(r2.getCalificacion() == null){
+                            r2.setCalificacion("0");
+                        }
                         return r2.getCalificacion().compareTo(r1.getCalificacion()) ;
                     }
                 });
@@ -271,6 +280,12 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
                 Collections.sort(mLugar, new Comparator<Lugar>() {
                     @Override
                     public int compare(Lugar r1, Lugar r2) {
+                        if(r1.getCalificacion() == null){
+                            r1.setCalificacion("0");
+                        }
+                        if(r2.getCalificacion() == null){
+                            r2.setCalificacion("0");
+                        }
                         return r1.getCalificacion().compareTo(r2.getCalificacion());
                     }
                 });
@@ -280,10 +295,10 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
                     @Override
                     public int compare(Lugar r1, Lugar r2) {
                         if(r1.getFecha() == null){
-                            r1.setFecha("00/00/00");
+                            r1.setFecha(" ");
                         }
                         if(r2.getFecha() == null){
-                            r2.setFecha("00/00/00");
+                            r2.setFecha(" ");
                         }
                         return r1.getFecha().compareTo(r2.getFecha());
                     }
@@ -294,10 +309,10 @@ public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.ViewHolder> 
                     @Override
                     public int compare(Lugar r1, Lugar r2) {
                         if(r1.getFecha() == null){
-                            r1.setFecha("00/00/00");
+                            r1.setFecha(" ");
                         }
                         if(r2.getFecha() == null){
-                            r2.setFecha("00/00/00");
+                            r2.setFecha(" ");
                         }
                         return r2.getFecha().compareTo(r1.getFecha());
                     }

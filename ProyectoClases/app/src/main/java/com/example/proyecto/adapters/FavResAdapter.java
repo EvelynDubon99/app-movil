@@ -204,6 +204,12 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
                 Collections.sort(mFavres, new Comparator<Favres>() {
                     @Override
                     public int compare(Favres f1, Favres f2) {
+                        if(f1.restaurante.getCalificacion() == null){
+                            f1.restaurante.setCalificacion("0");
+                        }
+                        if(f2.restaurante.getCalificacion() == null){
+                            f2.restaurante.setCalificacion("0");
+                        }
                         return f2.restaurante.getCalificacion().compareTo(
                                 f1.restaurante.getCalificacion());
                     }
@@ -213,6 +219,12 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
                 Collections.sort(mFavres, new Comparator<Favres>() {
                     @Override
                     public int compare(Favres f1, Favres f2) {
+                        if(f1.restaurante.getCalificacion() == null){
+                            f1.restaurante.setCalificacion("0");
+                        }
+                        if(f2.restaurante.getCalificacion() == null){
+                            f2.restaurante.setCalificacion("0");
+                        }
                         return f1.restaurante.getCalificacion().compareTo(
                                 f2.restaurante.getCalificacion());
                     }
@@ -222,10 +234,10 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
                     @Override
                     public int compare(Favres f1, Favres f2) {
                         if(f1.getFecha() == null){
-                            f1.setFecha("00/00/00");
+                            f1.setFecha(" ");
                         }
                         if(f2.getFecha() == null){
-                            f2.setFecha("00/00/00");
+                            f2.setFecha(" ");
                         }
 
                         return f1.getFecha().compareTo(
@@ -239,10 +251,10 @@ public class FavResAdapter extends RecyclerView.Adapter<FavResAdapter.ViewHolder
                     public int compare(Favres f1, Favres f2) {
 
                         if(f2.getFecha() == null){
-                            f2.setFecha("00/00/00");
+                            f2.setFecha(" ");
                         }
                         if(f1.getFecha() == null){
-                            f1.setFecha("00/00/00");
+                            f1.setFecha(" ");
                         }
                         return f2.getFecha().compareTo(
                                 f1.getFecha());

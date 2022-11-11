@@ -186,6 +186,10 @@ public class DetalleLugFragment extends Fragment implements View.OnClickListener
         }
 
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+    }
 
     private void deleteFavoritos(String id_fav) {
         FavLugService favLugService = Api.getRetrofitInstance().create(FavLugService.class);
