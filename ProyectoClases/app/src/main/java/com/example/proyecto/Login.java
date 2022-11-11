@@ -29,6 +29,7 @@ public class Login extends AppCompatActivity {
     private EditText correo;
     private EditText contra;
     private Button login;
+
     SharedPreferences sharedPreferences;
 
 
@@ -42,6 +43,7 @@ public class Login extends AppCompatActivity {
         correo = findViewById(R.id.correo);
         contra = findViewById(R.id.contra);
         login = findViewById(R.id.login);
+
         final LoadingDialog loadingDialog = new LoadingDialog(Login.this);
 
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
@@ -99,7 +101,7 @@ public class Login extends AppCompatActivity {
                         editor.commit();
                         Intent intent = new Intent(getApplicationContext(), Home.class);
                         startActivity(intent);
-                        finish();
+
                     } else{
 
                     }
@@ -116,7 +118,13 @@ public class Login extends AppCompatActivity {
 
     }
 
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        String id = sharedPreferences.getString("_id", null);
+        if (id != null){
+            finish();
+        }
+    }
 }

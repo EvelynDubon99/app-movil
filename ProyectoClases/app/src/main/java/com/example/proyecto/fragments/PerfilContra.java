@@ -34,7 +34,6 @@ public class PerfilContra extends AppCompatDialogFragment {
         binding = PerfilcontraBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         contra = view.findViewById(R.id.pass);
-        confirm = view.findViewById(R.id.confir);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
@@ -45,7 +44,7 @@ public class PerfilContra extends AppCompatDialogFragment {
                 User user = new User();
                 user.setContra(contra.getText().toString());
                 userService = Api.getRetrofitInstance().create(UserService.class);
-                Call<User> call = userService.updateuser(id_u, user);
+                Call<User> call = userService.cambioPassword(id_u, user);
                 call.enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {

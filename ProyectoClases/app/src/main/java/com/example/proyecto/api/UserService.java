@@ -35,6 +35,9 @@ public interface UserService {
     @GET("api/users/{id}")
     Call<User>getUsuario(@Path("id")String id);
 
+    @PUT("api/users/cambioPass/{id}")
+    Call<User>cambioPassword(@Path("id")String id, @Body User user);
+
 
     @PUT("api/users/{id}")
     Call<User>updateuser(@Path("id")String id, @Body User user);

@@ -172,6 +172,24 @@ public class RestauranteFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+        String id_u = sharedPreferences.getString("_id", " ");
+        Call<List<Restaurante>> restauranteCall = restauranteService.getRestaurante(id_u);
+        restauranteCall.enqueue(new Callback<List<Restaurante>>() {
+            @Override
+            public void onResponse(Call<List<Restaurante>> call, Response<List<Restaurante>> response) {
+                adapter.reloadData(response.body());
+                adapter.notifyDataSetChanged();
 
+            }
 
+            @Override
+            public void onFailure(Call<List<Restaurante>> call, Throwable t) {
+                System.out.print(t.toString());
+            }
+        });
+    }
 }
