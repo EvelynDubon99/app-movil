@@ -38,12 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetalleFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
+
 public class DetalleFragment extends Fragment implements View.OnClickListener {
 
     private FragmentDetalleBinding binding;
@@ -52,47 +47,6 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
     private Restaurante restaurante;
     private CheckBox fav;
     SharedPreferences sharedPreferences;
-
-
-
-
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-
-    public static DetalleFragment newInstance(String param1, String param2) {
-        DetalleFragment fragment = new DetalleFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public DetalleFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getParentFragmentManager().setFragmentResultListener("key", this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
-                // We use a String here, but any type that can be put in a Bundle is supported
-                String result = bundle.getString("bundleKey");
-                // Do something with the result...
-            }
-        });
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -143,6 +97,21 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume(){
         super.onResume();
+        Bundle bundle = getActivity().getIntent().getExtras();
+        if(bundle.get("favs").toString().isEmpty()){
+            fav.setChecked(false);
+        }else{
+            fav.setChecked(true);
+        }
+        TextView itNombre = binding.itemDetailNombre;
+        TextView itDept = binding.itemDetailDept;
+        TextView itDes = binding.descripcion;
+        TextView itcal = binding.cal;
+        itDes.setText(bundle.getString("des"));
+        itcal.setText(bundle.getString("cal") +" " + "/ 5");
+        itNombre.setText(bundle.getString("eNombre"));
+        itDept.setText(bundle.getString("eDepartamento"));
+
     }
     @Override
     public void onClick(View view) {
@@ -179,17 +148,38 @@ public class DetalleFragment extends Fragment implements View.OnClickListener {
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                 }else{
-                    deleteFavoritos(bundle.getString("favs"));
                     AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-                    dialog.setView(R.layout.error);
-                    dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    dialog.setView(R.layout.deletefavoritos);
+                    dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
+                            deleteFavoritos(bundle.getString("favs"));
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                            dialog.setView(R.layout.error);
+                            dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = dialog.create();
+                            alertDialog.show();
                         }
                     });
-                    AlertDialog alertDialog = dialog.create();
+                    dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Bundle bundle = getActivity().getIntent().getExtras();
+                            if(bundle.get("favs").toString().isEmpty()){
+                                fav.setChecked(false);
+                            }else{
+                                fav.setChecked(true);
+                            }
+                        }
+                    });
+                  AlertDialog alertDialog = dialog.create();
                     alertDialog.show();
+
                 }
 
 

@@ -57,6 +57,22 @@ public class PerfilContra extends AppCompatDialogFragment {
 
                     }
                 });
+                android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(getContext());
+                dialog.setView(R.layout.contraactualizada);
+                dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                android.app.AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
             }
         });
 
